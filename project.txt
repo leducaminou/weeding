@@ -1,0 +1,2117 @@
+# PROMPT MAÎTRE — PLATEFORME DIGITALE DE MARIAGE
+
+## LOÏCA & FRANCK — 27 & 29 DÉCEMBRE 2026
+
+
+---
+
+# 1. RÔLE
+
+Agis comme une **équipe senior multidisciplinaire** composée de :
+
+* Product Manager
+* UX/UI Designer senior
+* Art Director spécialisé en événementiel haut de gamme
+* Architecte logiciel
+* Expert Next.js / React / TypeScript
+* Expert PostgreSQL / Prisma
+* Expert shadcn/ui
+* Expert Framer Motion
+* Expert responsive/mobile-first
+* Expert QR Code
+* Expert UploadThing
+* Expert WhatsApp / Baileys
+* Expert sécurité
+* QA Engineer
+* DevOps / SRE
+
+Tu dois concevoir et développer une **plateforme digitale de mariage premium** pour :
+
+# LOÏCA & FRANCK
+
+L'objectif est de créer une expérience beaucoup plus élégante, moderne, fluide et minimaliste qu'un simple site d'invitation.
+
+Le produit doit combiner :
+
+* invitation digitale ;
+* présentation du mariage ;
+* programme ;
+* informations pratiques ;
+* hébergements ;
+* wishlist ;
+* confirmation de présence ;
+* génération d'un identifiant invité ;
+* génération d'un QR Code personnel ;
+* envoi du QR Code par WhatsApp ;
+* notification WhatsApp à l'administrateur ;
+* validation d'un invité lors du scan ;
+* dashboard d'administration ;
+* statistiques ;
+* gestion complète du contenu.
+
+---
+
+# 2. IMPORTANT — DIRECTION ARTISTIQUE
+
+## NE PAS UTILISER LES IMAGES FOURNIES PRÉCÉDEMMENT COMME MODÈLE
+
+Les anciennes images de référence ne doivent **plus être utilisées comme modèle graphique ou source d'inspiration directe**.
+
+Ne pas reproduire leur :
+
+* composition ;
+* style ;
+* mise en page ;
+* typographie ;
+* éléments graphiques ;
+* structure visuelle.
+
+Créer une direction artistique originale.
+
+---
+
+# 3. PALETTE DE COULEURS
+
+La couleur principale obligatoire est :
+
+```text
+#1D4079
+```
+
+Elle doit constituer la couleur dominante de l'interface.
+
+La seconde couleur principale est :
+
+```text
+DORÉ / OR
+```
+
+Utiliser un doré élégant et premium.
+
+Le doré doit être utilisé comme :
+
+* accent ;
+* bordure ;
+* détail décoratif ;
+* séparation ;
+* texte secondaire important ;
+* CTA secondaire ;
+* éléments de mise en valeur.
+
+Éviter un doré trop jaune ou criard.
+
+La palette globale doit rester principalement :
+
+```text
+Bleu profond
++
+Doré / Or
++
+Blanc
++
+Nuances neutres très légères
+```
+
+Ne pas introduire arbitrairement une multitude de couleurs.
+
+---
+
+# 4. IDENTITÉ VISUELLE
+
+L'ambiance recherchée :
+
+* mariage haut de gamme ;
+* élégance ;
+* romantisme ;
+* sobriété ;
+* raffinement ;
+* prestige ;
+* chaleur ;
+* modernité.
+
+Éviter :
+
+* design kitsch ;
+* surcharge florale ;
+* animations excessives ;
+* gradients agressifs ;
+* effets néon ;
+* cartes génériques ;
+* aspect dashboard sur le site public.
+
+Le site doit ressembler à une **invitation de mariage haut de gamme transformée en expérience digitale**.
+
+---
+
+# 5. STACK TECHNIQUE
+
+Utiliser :
+
+## Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* shadcn/ui
+* Framer Motion
+* Lucide React
+* next/image
+* next/font
+
+## Database
+
+* PostgreSQL
+* Prisma
+
+## Storage
+
+* UploadThing
+
+## WhatsApp
+
+* Baileys
+
+---
+
+# 6. MOBILE FIRST
+
+CONTRAINTE ABSOLUE.
+
+Le design doit être conçu d'abord pour :
+
+```text
+Mobile
+↓
+Tablet
+↓
+Desktop
+```
+
+Le mobile n'est pas une adaptation du desktop.
+
+Tester notamment :
+
+```text
+320px
+375px
+390px
+414px
+768px
+1024px
+1280px
+1440px
+```
+
+Aucun débordement horizontal.
+
+---
+
+# 7. SITE SIMPLE — PEU DE PAGES
+
+Ne pas reproduire la multitude de pages de The Knot.
+
+Le site public doit rester très compact.
+
+Architecture recommandée :
+
+```text
+/
+Accueil
+
+/programme
+Programme
+
+/infos
+Informations pratiques + hébergements + wishlist
+
+/rsvp
+Je serai là
+
+/invitation/[identifier]
+Invitation digitale personnelle
+
+/qr/[identifier]
+Validation publique du QR Code
+```
+
+Certaines informations peuvent être intégrées directement dans des sections de la Home pour réduire encore le nombre de pages.
+
+---
+
+# 8. NAVIGATION
+
+La navigation doit rester minimale.
+
+Sur mobile :
+
+```text
+Accueil
+Programme
+Infos
+Je serai là
+```
+
+Le CTA principal doit toujours être facilement accessible :
+
+> JE SERAI LÀ
+
+La navigation doit être élégante et discrète.
+
+---
+
+# 9. PAGE D'ACCUEIL
+
+La Home doit être la pièce maîtresse du site.
+
+Structure recommandée :
+
+```text
+Hero
+↓
+Présentation du couple
+↓
+Save the Date
+↓
+Programme résumé
+↓
+Informations pratiques
+↓
+Hébergements
+↓
+Wishlist
+↓
+Je serai là
+↓
+Message final
+↓
+Footer
+```
+
+Ne pas nécessairement afficher toutes les informations intégralement sur la Home.
+
+Utiliser des CTA vers les sections/pages correspondantes.
+
+---
+
+# 10. HERO
+
+Le Hero doit immédiatement communiquer :
+
+# LOÏCA & FRANCK
+
+Puis :
+
+> Ont la joie de vous inviter à célébrer leur union
+
+Afficher :
+
+```text
+27 & 29 DÉCEMBRE 2026
+```
+
+et le CTA principal :
+
+> Je serai là
+
+Utiliser les images du couple disponibles dans :
+
+```text
+/public
+```
+
+Ne pas modifier inutilement les photos originales.
+
+Utiliser `next/image`.
+
+---
+
+# 11. SAVE THE DATE
+
+Créer une section élégante :
+
+```text
+SAVE THE DATE
+
+27
+DÉCEMBRE
+2026
+```
+
+Le traitement graphique doit utiliser :
+
+* bleu #1D4079 ;
+* doré ;
+* blanc.
+
+Ajouter éventuellement un compte à rebours :
+
+```text
+J - XXX
+```
+
+La valeur doit être calculée dynamiquement.
+
+Ne jamais coder le nombre de jours en dur.
+
+---
+
+# 12. PROGRAMME DU MARIAGE
+
+Le programme officiel est :
+
+## MARIAGE TRADITIONNEL
+
+**Dimanche 27 décembre 2026**
+
+**À partir de 10h00**
+
+📍 **Bafou**
+
+Texte :
+
+> Votre présence à leurs côtés rendra cette journée encore plus belle et inoubliable.
+
+---
+
+## MARIAGE CIVIL
+
+**Mardi 29 décembre 2026**
+
+**À 10h00**
+
+📍 **Le Tagidor Garden Resort & Spa — Bangou**
+
+---
+
+## CÉRÉMONIE RELIGIEUSE
+
+**Mardi 29 décembre 2026**
+
+**À 13h00**
+
+📍 **Le Tagidor Garden Resort & Spa — Bangou**
+
+---
+
+# 13. PROGRAMME — UX
+
+Présenter le programme sous forme de timeline élégante.
+
+Exemple conceptuel :
+
+```text
+27 DÉCEMBRE
+10H00
+
+MARIAGE TRADITIONNEL
+
+Bafou
+```
+
+Puis :
+
+```text
+29 DÉCEMBRE
+10H00
+
+MARIAGE CIVIL
+
+Le Tagidor Garden Resort & Spa
+Bangou
+```
+
+Puis :
+
+```text
+29 DÉCEMBRE
+13H00
+
+CÉRÉMONIE RELIGIEUSE
+
+Le Tagidor Garden Resort & Spa
+Bangou
+```
+
+Utiliser Framer Motion pour les apparitions et transitions.
+
+---
+
+# 14. AJOUT AU CALENDRIER
+
+Pour chaque événement, prévoir :
+
+> Ajouter à mon calendrier
+
+Prévoir une architecture permettant :
+
+* Google Calendar ;
+* Apple Calendar ;
+* éventuellement fichier `.ics`.
+
+Ne pas obliger l'utilisateur à créer un compte.
+
+---
+
+# 15. LOCALISATION
+
+Pour chaque lieu, prévoir :
+
+```text
+Nom
+Adresse
+Google Maps
+```
+
+CTA :
+
+> Voir l'itinéraire
+
+Les coordonnées et liens doivent être stockés dans la DB.
+
+Ne pas coder les liens directement dans les composants.
+
+---
+
+# 16. DRESS CODE
+
+Le dress code officiel est :
+
+# BLEU & BLANC
+
+Créer une section élégante :
+
+```text
+DRESS CODE
+
+BLEU
+&
+BLANC
+```
+
+Le rendu doit rester cohérent avec la palette du site.
+
+---
+
+# 17. HÉBERGEMENTS
+
+Créer une section :
+
+# HÉBERGEMENTS
+
+Texte :
+
+> Pour faciliter votre séjour et votre participation aux différentes célébrations, plusieurs possibilités d'hébergement sont disponibles à Dschang, Bafou et Bangou.
+
+Les établissements sont :
+
+---
+
+## LE TAGIDOR GARDEN RESORT & SPA
+
+Adresse :
+
+> Rte Bangou, Bangou, Région de l'Ouest, Cameroun
+
+Téléphones :
+
+> +237 6 93 33 33 07
+> +237 6 58 08 93 73
+
+---
+
+## HÔTEL DE LA PAIX — BANGOU
+
+Adresse :
+
+> En bordure de la route principale, axe Bangou–Bafang
+
+Téléphones :
+
+> +237 6 98 71 21 00
+> +237 6 79 26 85 67
+
+---
+
+## CENTRE D'ACCUEIL DE BANGOU
+
+Adresse :
+
+> Route principale de Bangou
+
+Téléphone :
+
+> +237 6 77 69 90 37
+
+---
+
+## CENTRE TOURISTIQUE TOCKEM
+
+Adresse :
+
+> Chefferie Ntsingbeu, Bafou
+
+Téléphone :
+
+> +237 6 90 61 64 73
+
+---
+
+## HÔTEL DE MALTE — DSCHANG
+
+Adresse :
+
+> Quartier Administratif, Dschang, Cameroun
+
+Téléphone :
+
+> +237 6 99 04 01 37
+
+---
+
+## CONSTELLATION HOTEL — DSCHANG
+
+Adresse :
+
+> Centre-ville, en face de la Commercial Bank, Dschang
+
+Téléphone :
+
+> +237 6 57 61 90 91
+
+---
+
+# 18. HÉBERGEMENTS — IMPORTANT
+
+Ces données ne doivent PAS être codées directement dans les composants.
+
+Elles doivent être stockées dans PostgreSQL.
+
+L'administrateur doit pouvoir :
+
+* ajouter ;
+* modifier ;
+* supprimer ;
+* désactiver ;
+* réordonner ;
+* modifier téléphone ;
+* modifier adresse ;
+* ajouter une image ;
+* ajouter un lien ;
+* modifier la description.
+
+---
+
+# 19. WISHLIST
+
+Le site doit comporter une :
+
+# WISHLIST
+
+La wishlist doit permettre au couple de présenter les cadeaux qu'il souhaite recevoir.
+
+La wishlist doit être entièrement administrable.
+
+Un élément peut contenir :
+
+```text
+id
+title
+description
+image
+url
+category
+priority
+position
+active
+```
+
+Les données doivent venir de la DB.
+
+L'administrateur peut :
+
+* créer ;
+* modifier ;
+* supprimer ;
+* activer/désactiver ;
+* réordonner ;
+* modifier l'image ;
+* modifier le lien.
+
+---
+
+# 20. RSVP — CTA PRINCIPAL
+
+Le CTA principal du site est :
+
+# JE SERAI LÀ
+
+Le parcours doit être extrêmement simple.
+
+Étape 1 :
+
+```text
+Je serai là
+```
+
+Étape 2 :
+
+```text
+Prénom
+Nom
+Téléphone
+```
+
+Le téléphone doit être présenté comme optionnel.
+
+Exemple :
+
+```text
+Prénom *
+Nom *
+Téléphone (facultatif)
+```
+
+Puis :
+
+> CONFIRMER MA PRÉSENCE
+
+---
+
+# 21. CONFIRMATION
+
+Après validation :
+
+```text
+Votre présence est confirmée.
+
+Nous sommes heureux de vous compter
+parmi les invités de Loïca & Franck.
+```
+
+Le serveur crée automatiquement :
+
+* invité ;
+* identifiant ;
+* invitation ;
+* QR Code.
+
+---
+
+# 22. IDENTIFIANT INVITÉ
+
+Chaque personne confirmée reçoit un identifiant unique.
+
+Format strict :
+
+```text
+2 lettres + 2 chiffres
+```
+
+Exemples :
+
+```text
+AB42
+LO27
+FR19
+```
+
+L'identifiant doit être :
+
+* unique ;
+* généré côté serveur ;
+* vérifié côté DB ;
+* impossible à dupliquer.
+
+Ne pas générer uniquement côté frontend.
+
+Prévoir une stratégie de collision.
+
+---
+
+# 23. QR CODE
+
+Après confirmation, générer automatiquement un QR Code personnel.
+
+Le QR Code doit contenir uniquement une URL :
+
+```text
+https://DOMAIN/qr/AB42
+```
+
+Ne PAS mettre directement :
+
+```text
+Nom
+Prénom
+Téléphone
+```
+
+dans le QR.
+
+Le serveur utilise l'identifiant pour retrouver l'invité.
+
+---
+
+# 24. DIMENSIONS QR
+
+Chaque QR Code doit être :
+
+```text
+webp
+320 × 320 px maximum
+```
+
+Recommandation :
+
+```text
+320 × 320 px
+```
+
+Le fichier doit être propre et parfaitement scannable.
+
+Conserver une quiet zone suffisante.
+
+---
+
+# 25. UPLOADTHING
+
+Chaque QR Code doit être uploadé sur UploadThing.
+
+En DB, conserver au minimum :
+
+```text
+qrCodeUrl
+qrCodeKey
+```
+
+afin de pouvoir supprimer précisément le fichier plus tard.
+
+Ne jamais dépendre uniquement de l'URL.
+
+---
+
+# 26. PAGE INVITATION
+
+Après confirmation, afficher :
+
+```text
+LOÏCA & FRANCK
+
+Votre présence est confirmée.
+
+INVITÉ
+
+Prénom Nom
+
+IDENTIFIANT
+
+AB42
+
+[QR CODE]
+
+[ Télécharger mon QR Code ]
+```
+
+Le QR doit être affiché proprement.
+
+---
+
+# 27. DOWNLOAD QR
+
+Le bouton :
+
+> Télécharger mon QR Code
+
+doit télécharger :
+
+```text
+invitation-AB42.webp
+```
+
+Format :
+
+```text
+webp
+320 × 320 px
+```
+
+---
+
+# 28. PAGE PUBLIQUE APRÈS SCAN
+
+Lorsqu'un QR est scanné :
+
+```text
+/qr/AB42
+```
+
+afficher :
+
+```text
+LOÏCA & FRANCK
+
+INVITATION
+
+Aminou Mohamadou
+
+AB42
+
+✓ IL EST INVITÉ
+
+Nous sommes heureux de vous compter
+parmi nous pour célébrer cette union.
+```
+
+Ne pas afficher :
+
+* numéro de téléphone ;
+* données privées ;
+* informations administratives.
+
+---
+
+# 29. STATUT INVITATION
+
+Prévoir dans la DB :
+
+```text
+CONFIRMED
+REVOKED
+EXPIRED
+```
+
+Préparer également l'architecture pour :
+
+```text
+CHECKED_IN
+```
+
+qui permettra plus tard de gérer l'arrivée le jour du mariage.
+
+---
+
+# 30. CHECK-IN FUTUR
+
+Préparer les champs :
+
+```text
+checkedInAt
+checkedInBy
+```
+
+et éventuellement un historique des scans.
+
+La fonctionnalité de scanner pourra être développée ultérieurement.
+
+---
+
+# 31. WHATSAPP — BAILEYS
+
+Après confirmation :
+
+```text
+RSVP
+ ↓
+Guest
+ ↓
+Identifier
+ ↓
+QR
+ ↓
+UploadThing
+ ↓
+WhatsApp
+```
+
+Si le téléphone est fourni :
+
+envoyer automatiquement un WhatsApp.
+
+---
+
+# 32. MESSAGE WHATSAPP INVITÉ
+
+Exemple :
+
+> Bonjour [Prénom],
+>
+> Votre présence au mariage de Loïca & Franck est bien confirmée.
+>
+> Votre identifiant invité :
+> **AB42**
+>
+> Voici votre QR Code personnel :
+> [LIEN]
+>
+> Merci de le conserver précieusement pour le jour du mariage.
+
+Le contenu du message doit être administrable si possible.
+
+---
+
+# 33. NOTIFICATION WHATSAPP ADMIN
+
+Lorsqu'une personne confirme :
+
+envoyer une notification WhatsApp à l'administrateur.
+
+Exemple :
+
+> Nouvelle confirmation de présence.
+>
+> Nom : Aminou Mohamadou
+> Identifiant : AB42
+>
+> Cette personne sera présente au mariage.
+
+Le numéro administrateur doit être configurable dans le dashboard.
+
+---
+
+# 34. ERREUR WHATSAPP
+
+IMPORTANT :
+
+La confirmation RSVP ne doit jamais dépendre de WhatsApp.
+
+Exemple :
+
+```text
+RSVP       ✓
+Guest      ✓
+QR         ✓
+Upload     ✓
+WhatsApp   ✗
+```
+
+Dans ce cas :
+
+* l'invité reste confirmé ;
+* le QR reste valide ;
+* le dashboard affiche l'erreur ;
+* l'administrateur peut renvoyer le message.
+
+---
+
+# 35. CONFIGURATION WHATSAPP ADMIN
+
+Créer une section :
+
+```text
+/admin/settings/whatsapp
+```
+
+Afficher :
+
+* statut ;
+* numéro connecté ;
+* état Baileys ;
+* connexion ;
+* déconnexion ;
+* QR de connexion Baileys si nécessaire ;
+* numéro administrateur ;
+* test d'envoi.
+
+Les sessions et credentials doivent être stockés de manière sécurisée.
+
+Ne jamais exposer les credentials au frontend.
+
+---
+
+# 36. DASHBOARD ADMIN
+
+Créer :
+
+```text
+/admin
+```
+
+avec authentification.
+
+Le dashboard doit être séparé visuellement du site public.
+
+---
+
+# 37. LOGIN ADMIN
+
+Créer une authentification sécurisée :
+
+```text
+Email
+Mot de passe
+```
+
+Le mot de passe doit être hashé.
+
+Ne jamais stocker :
+
+```text
+password = "123456"
+```
+
+en clair.
+
+Prévoir :
+
+* session sécurisée ;
+* cookie HTTP-only ;
+* protection brute-force ;
+* logout ;
+* middleware ;
+* contrôle d'accès.
+
+---
+
+# 38. DASHBOARD — STATISTIQUES
+
+Afficher :
+
+```text
+INVITÉS
+
+Total
+Confirmés
+En attente
+Révoqués
+```
+
+Et :
+
+```text
+QR Codes
+
+Générés
+Actifs
+Scannés
+```
+
+Et :
+
+```text
+WhatsApp
+
+Envoyés
+En attente
+Échecs
+```
+
+---
+
+# 39. DASHBOARD — INVITÉS
+
+Créer :
+
+```text
+/admin/invites
+```
+
+Tableau :
+
+```text
+Prénom
+Nom
+Téléphone
+Identifiant
+Statut
+QR
+WhatsApp
+Date
+```
+
+Actions :
+
+* rechercher ;
+* filtrer ;
+* voir ;
+* renvoyer WhatsApp ;
+* télécharger QR ;
+* révoquer ;
+* éventuellement supprimer.
+
+---
+
+# 40. DASHBOARD — PROGRAMME
+
+Créer :
+
+```text
+/admin/events
+```
+
+CRUD complet :
+
+* événement ;
+* date ;
+* heure ;
+* lieu ;
+* adresse ;
+* coordonnées ;
+* description ;
+* ordre ;
+* visibilité.
+
+Les trois événements initiaux doivent être créés par seed.
+
+---
+
+# 41. DASHBOARD — HÉBERGEMENTS
+
+Créer :
+
+```text
+/admin/accommodations
+```
+
+CRUD complet.
+
+Les six établissements fournis doivent être présents dans le seed.
+
+---
+
+# 42. DASHBOARD — WISHLIST
+
+Créer :
+
+```text
+/admin/wishlist
+```
+
+CRUD complet.
+
+---
+
+# 43. DASHBOARD — GALERIE
+
+Créer :
+
+```text
+/admin/gallery
+```
+
+L'administrateur doit pouvoir :
+
+* ajouter ;
+* supprimer ;
+* réordonner ;
+* activer/désactiver.
+
+Les images du couple présentes dans `/public` doivent être utilisées pour la galerie/présentation lorsque pertinent.
+
+---
+
+# 44. DASHBOARD — CONTENU
+
+Créer une section permettant de modifier les textes du site.
+
+Cependant, ne pas créer un CMS inutilement complexe.
+
+Les contenus doivent être structurés et typés.
+
+---
+
+# 45. AUCUN HARDCODING MÉTIER
+
+Les données suivantes doivent impérativement venir de PostgreSQL :
+
+* événements ;
+* horaires ;
+* lieux ;
+* hébergements ;
+* wishlist ;
+* galerie administrable ;
+* textes configurables ;
+* configuration WhatsApp ;
+* paramètres QR ;
+* statistiques ;
+* invités.
+
+Les valeurs purement techniques peuvent rester dans des constantes de configuration.
+
+---
+
+# 46. BASE DE DONNÉES
+
+Concevoir un schéma Prisma propre.
+
+Modèles possibles :
+
+```text
+Admin
+Wedding
+Event
+Accommodation
+WishlistItem
+GalleryItem
+Guest
+Invitation
+QRCode
+WhatsAppMessage
+WhatsAppConfig
+Notification
+AuditLog
+SiteSetting
+```
+
+Ne pas créer des modèles inutiles.
+
+Chaque modèle doit répondre à une responsabilité métier réelle.
+
+---
+
+# 47. GESTION DU MARIAGE
+
+Même s'il n'y a actuellement qu'un seul mariage, concevoir le modèle de façon suffisamment propre pour permettre éventuellement plusieurs événements/mariages dans le futur.
+
+Cependant :
+
+**ne pas sur-architecturer.**
+
+Priorité au produit actuel.
+
+---
+
+# 48. SEED
+
+Créer un seed Prisma complet.
+
+Commande :
+
+```bash
+npx prisma db seed
+```
+
+Le seed doit créer :
+
+## Mariage
+
+```text
+Loïca & Franck
+```
+
+## Événement 1
+
+```text
+MARIAGE TRADITIONNEL
+
+27 décembre 2026
+10h00
+Bafou
+```
+
+## Événement 2
+
+```text
+MARIAGE CIVIL
+
+29 décembre 2026
+10h00
+Le Tagidor Garden Resort & Spa — Bangou
+```
+
+## Événement 3
+
+```text
+CÉRÉMONIE RELIGIEUSE
+
+29 décembre 2026
+13h00
+Le Tagidor Garden Resort & Spa — Bangou
+```
+
+## Dress code
+
+```text
+Bleu & Blanc
+```
+
+## Hébergements
+
+Créer les six établissements fournis.
+
+---
+
+# 49. TEXTE FINAL
+
+Utiliser exactement le message :
+
+> AVEC TOUTE NOTRE AFFECTION
+>
+> Loïca & Franck
+>
+> seront heureux de partager avec vous
+> ces précieux moments qui marqueront
+> le début de leur nouvelle vie à deux.
+>
+> Votre présence sera leur plus beau cadeau.
+
+Ne pas modifier ce texte sans nécessité.
+
+---
+
+# 50. FRANÇAIS UNIQUEMENT
+
+Le site est actuellement **uniquement en français**.
+
+NE PAS implémenter :
+
+* anglais ;
+* i18n ;
+* switcher de langue ;
+* traductions ;
+* tables de traduction.
+
+L'architecture doit toutefois rester suffisamment propre pour permettre une évolution ultérieure si nécessaire.
+
+---
+
+# 51. WISHLIST — IMPORTANT
+
+La wishlist doit être une véritable fonctionnalité.
+
+Prévoir :
+
+```text
+WishlistItem
+├── title
+├── description
+├── image
+├── link
+├── category
+├── position
+└── active
+```
+
+Lorsqu'un utilisateur clique sur un élément :
+
+* ouvrir la page externe si nécessaire ;
+* utiliser un CTA clair.
+
+Ne pas créer de paiement ou de panier sauf demande ultérieure.
+
+---
+
+# 52. ANIMATIONS
+
+Utiliser Framer Motion avec parcimonie.
+
+Exemples :
+
+* Hero fade/reveal ;
+* apparition du titre ;
+* timeline ;
+* galerie ;
+* cards hébergements ;
+* wishlist ;
+* confirmation RSVP ;
+* apparition QR.
+
+Respecter :
+
+```text
+prefers-reduced-motion
+```
+
+---
+
+# 53. ICÔNES
+
+Utiliser exclusivement :
+
+```text
+Lucide React
+```
+
+Ne pas installer d'autre bibliothèque d'icônes.
+
+---
+
+# 54. SHADCN
+
+Utiliser shadcn/ui pour les composants fonctionnels :
+
+* Button ;
+* Input ;
+* Dialog ;
+* Card ;
+* Select ;
+* Table ;
+* Badge ;
+* Tabs ;
+* Toast ;
+* Dropdown ;
+* Sheet.
+
+Mais le site public ne doit pas ressembler à une application shadcn générique.
+
+Personnaliser fortement le design.
+
+---
+
+# 55. TYPOGRAPHIE
+
+Choisir une typographie premium adaptée au mariage.
+
+Elle doit être lisible sur mobile.
+
+Recommandation :
+
+* une police élégante pour les titres ;
+* une police moderne et lisible pour les informations.
+
+Ne pas utiliser plus de deux familles typographiques sans justification.
+
+---
+
+# 56. RESPONSIVE DESIGN
+
+Les sections doivent être pensées pour le mobile :
+
+```text
+Hero
+↓
+Date
+↓
+Programme
+↓
+Infos
+↓
+Hébergements
+↓
+Wishlist
+↓
+RSVP
+```
+
+Sur desktop, améliorer l'espace et la composition sans modifier fondamentalement le parcours.
+
+---
+
+# 57. PERFORMANCE
+
+Optimiser :
+
+* images ;
+* fonts ;
+* JS ;
+* animations ;
+* requêtes DB ;
+* cache lorsque pertinent.
+
+Utiliser Server Components lorsque possible.
+
+Ne pas transformer inutilement toute l'application en Client Components.
+
+---
+
+# 58. SEO
+
+Prévoir :
+
+* title ;
+* description ;
+* Open Graph ;
+* favicon ;
+* canonical ;
+* robots ;
+* sitemap.
+
+Prévoir une belle preview WhatsApp.
+
+---
+
+# 59. OPEN GRAPH
+
+Créer une image OG premium basée sur :
+
+```text
+LOÏCA & FRANCK
+27 & 29 DÉCEMBRE 2026
+```
+
+Palette :
+
+```text
+#1D4079
+OR
+BLANC
+```
+
+---
+
+# 60. SÉCURITÉ
+
+Prévoir :
+
+* validation serveur ;
+* rate limiting RSVP ;
+* protection admin ;
+* hash password ;
+* cookies sécurisés ;
+* validation fichiers ;
+* protection endpoints ;
+* audit logs ;
+* contrôle UploadThing ;
+* absence de données sensibles dans les URLs ;
+* absence de credentials dans Git.
+
+---
+
+# 61. DONNÉES PERSONNELLES
+
+Le système collecte :
+
+* prénom ;
+* nom ;
+* téléphone optionnel.
+
+Le téléphone ne doit jamais être affiché sur la page publique du QR.
+
+Le QR public ne doit afficher que :
+
+```text
+Nom
+Prénom
+Identifiant
+Statut invité
+```
+
+---
+
+# 62. IDENTIFIANT ET CONFIDENTIALITÉ
+
+L'identifiant :
+
+```text
+AB42
+```
+
+n'est pas une donnée secrète.
+
+Il sert à identifier l'invitation.
+
+Cependant, ne pas permettre facilement d'énumérer toutes les invitations.
+
+Prévoir une stratégie de validation raisonnable.
+
+---
+
+# 63. SUPPRESSION AUTOMATIQUE DES QR CODES
+
+Tous les QR Codes UploadThing doivent être supprimés après :
+
+# 15 JANVIER 2027
+
+Implémenter une vraie tâche serveur/cron.
+
+Ne pas dépendre du navigateur.
+
+Le cleanup doit :
+
+1. rechercher les QR à supprimer ;
+2. supprimer les fichiers UploadThing ;
+3. mettre à jour la DB ;
+4. journaliser ;
+5. gérer les erreurs ;
+6. être idempotent.
+
+---
+
+# 64. PRÉCISION SUR LA DATE
+
+Définir explicitement la règle :
+
+```text
+Après le 15 janvier 2027
+```
+
+Interprétation recommandée :
+
+```text
+16 janvier 2027 à 00:00
+```
+
+À cette date, tous les fichiers QR concernés doivent être supprimés d'UploadThing.
+
+Cette règle doit être documentée.
+
+---
+
+# 65. WHATSAPP ET CLEANUP
+
+Après suppression du QR UploadThing :
+
+les anciens liens QR peuvent devenir invalides.
+
+C'est normal.
+
+La DB doit conserver les informations historiques nécessaires :
+
+```text
+Guest
+Invitation
+identifier
+status
+```
+
+mais le fichier QR physique doit être supprimé.
+
+---
+
+# 66. ARCHITECTURE SERVICES
+
+Créer des services spécialisés :
+
+```text
+GuestService
+InvitationService
+QRCodeService
+WhatsAppService
+EventService
+AccommodationService
+WishlistService
+GalleryService
+```
+
+Éviter une énorme route API contenant toute la logique.
+
+---
+
+# 67. RSVP — IDEMPOTENCE
+
+Un double clic ne doit pas créer deux invités.
+
+Le backend doit gérer :
+
+```text
+double submit
+refresh
+retry
+network retry
+```
+
+Le système doit être idempotent autant que possible.
+
+---
+
+# 68. QR — IDEMPOTENCE
+
+Un invité ne doit pas recevoir plusieurs QR inutiles à chaque refresh.
+
+Si un QR valide existe :
+
+réutiliser celui-ci.
+
+Ne régénérer que si nécessaire.
+
+---
+
+# 69. WHATSAPP — IDEMPOTENCE
+
+Ne pas envoyer automatiquement plusieurs messages si le navigateur retransmet la requête.
+
+Prévoir un état :
+
+```text
+PENDING
+SENT
+FAILED
+```
+
+avec possibilité de retry.
+
+---
+
+# 70. JOURNALISATION
+
+Prévoir des logs structurés.
+
+Exemples :
+
+```text
+RSVP_CREATED
+QR_GENERATED
+QR_UPLOADED
+WHATSAPP_SENT
+WHATSAPP_FAILED
+QR_DELETED
+ADMIN_LOGIN
+```
+
+---
+
+# 71. ADMIN — AUDIT LOG
+
+Prévoir :
+
+```text
+AuditLog
+```
+
+pour :
+
+* connexion ;
+* modification contenu ;
+* création invité ;
+* modification invité ;
+* suppression ;
+* révocation ;
+* QR ;
+* WhatsApp ;
+* configuration.
+
+---
+
+# 72. CHECK-IN — PRÉPARATION
+
+Même si le scanner n'est pas développé immédiatement, prévoir :
+
+```text
+Invitation
+├── identifier
+├── status
+├── checkedInAt
+└── checkedInBy
+```
+
+Préparer également une architecture permettant de créer ultérieurement :
+
+```text
+CheckInLog
+```
+
+---
+
+# 73. ARCHITECTURE FRONTEND
+
+Adapter au repository existant.
+
+Architecture indicative :
+
+```text
+src/
+├── app/
+│   ├── page.tsx
+│   ├── programme/
+│   ├── infos/
+│   ├── rsvp/
+│   ├── invitation/
+│   ├── qr/
+│   └── admin/
+│
+├── components/
+│   ├── ui/
+│   ├── wedding/
+│   ├── invitation/
+│   ├── rsvp/
+│   ├── qr/
+│   └── admin/
+│
+├── lib/
+│   ├── db/
+│   ├── qr/
+│   ├── whatsapp/
+│   └── uploadthing/
+│
+├── services/
+├── repositories/
+├── validations/
+├── types/
+└── config/
+```
+
+Adapter selon l'existant.
+
+---
+
+# 75. DOCUMENTATION AVANT IMPLÉMENTATION
+
+Créer :
+
+```text
+AUDIT.md
+ARCHITECTURE.md
+DATABASE.md
+```
+
+Ces documents doivent expliquer :
+
+* architecture actuelle ;
+* architecture cible ;
+* modèles DB ;
+* relations ;
+* flux RSVP ;
+* flux QR ;
+* flux WhatsApp ;
+* cleanup ;
+* sécurité.
+
+---
+
+# 76. NE PAS CODER LES DONNÉES
+
+Tout ce qui est métier doit être DB-driven.
+
+Exemple INTERDIT :
+
+```typescript
+const events = [
+  {
+    title: "Mariage traditionnel",
+    date: "27 décembre 2026"
+  }
+]
+```
+
+dans un composant.
+
+Le composant doit récupérer les données depuis la couche métier.
+
+---
+
+# 77. EXCEPTION
+
+Les constantes purement techniques peuvent être dans le code :
+
+```text
+QR_SIZE = 320
+QR_FORMAT = webp
+```
+
+ou configuration équivalente.
+
+Mais les informations du mariage ne doivent pas être hardcodées.
+
+---
+
+# 78. TESTS
+
+Prévoir tests :
+
+### RSVP
+
+* formulaire valide ;
+* formulaire invalide ;
+* doublon ;
+* double clic ;
+* téléphone absent ;
+* téléphone invalide.
+
+### QR
+
+* génération ;
+* téléchargement ;
+* scan ;
+* QR inexistant ;
+* QR révoqué ;
+* QR supprimé.
+
+### WhatsApp
+
+* connexion ;
+* envoi ;
+* échec ;
+* retry ;
+* numéro absent.
+
+### Admin
+
+* login ;
+* mauvais mot de passe ;
+* accès non autorisé ;
+* CRUD.
+
+---
+
+# 79. CRITÈRES UX
+
+L'invité doit pouvoir :
+
+```text
+ouvrir le lien
+↓
+comprendre immédiatement le mariage
+↓
+voir les informations essentielles
+↓
+cliquer "Je serai là"
+↓
+remplir prénom + nom
+↓
+confirmer
+↓
+obtenir son QR
+```
+
+Le parcours complet doit être extrêmement court.
+
+---
+
+# 80. MESSAGE FINAL
+
+La Home doit se terminer par :
+
+> AVEC TOUTE NOTRE AFFECTION
+>
+> Loïca & Franck
+>
+> seront heureux de partager avec vous
+> ces précieux moments qui marqueront
+> le début de leur nouvelle vie à deux.
+>
+> Votre présence sera leur plus beau cadeau.
+
+---
+
+# 81. QUALITÉ VISUELLE
+
+Le site doit être jugé selon :
+
+### Élégance
+
+### Lisibilité
+
+### Cohérence
+
+### Mobile-first
+
+### Hiérarchie
+
+### Émotion
+
+### Performance
+
+### Simplicité
+
+La priorité est :
+
+```text
+BEAUTÉ
++
+SIMPLICITÉ
++
+FONCTIONNALITÉ
+```
+
+Pas la quantité de fonctionnalités.
+
+---
+
+# 82. BOUCLE DE QUALITÉ
+
+Après chaque grande phase :
+
+noter :
+
+```text
+UX /10
+UI /10
+Architecture /10
+Responsive /10
+Performance /10
+Sécurité /10
+Maintenabilité /10
+Fonctionnalité /10
+```
+
+Calculer une note globale.
+
+Si le résultat est inférieur à :
+
+# 9.9/10
+
+identifier les problèmes et améliorer.
+
+Ne pas gonfler artificiellement les notes.
+
+---
+
+# 83. ORDRE D'IMPLÉMENTATION
+
+Respecter cet ordre :
+
+## Phase 1
+
+Audit
+
+## Phase 2
+
+Architecture + DB
+
+## Phase 3
+
+Design system
+
+## Phase 4
+
+Site public
+
+## Phase 5
+
+Programme + hébergements + wishlist
+
+## Phase 6
+
+RSVP
+
+## Phase 7
+
+Identifiant invité
+
+## Phase 8
+
+QR Code + UploadThing
+
+## Phase 9
+
+WhatsApp / Baileys
+
+## Phase 10
+
+Dashboard admin
+
+## Phase 11
+
+Statistiques
+
+## Phase 12
+
+Cleanup QR
+
+## Phase 13
+
+QA
+
+## Phase 14
+
+Optimisation
+
+---
+
+# 84. RÈGLE FINALE
+
+Ne cherche pas à reproduire The Knot.
+
+Inspire-toi uniquement de son **niveau fonctionnel**.
+
+Le produit final doit être une expérience originale :
+
+# LOÏCA & FRANCK
+
+avec une identité visuelle basée sur :
+
+```text
+#1D4079
++
+DORÉ / OR
++
+BLANC
+```
+
+Le site doit donner l'impression d'une **invitation de mariage haut de gamme transformée en expérience digitale interactive**.
+
+La technologie doit être invisible pour l'utilisateur.
+
+Tout doit sembler :
+
+**simple, fluide, élégant et naturel.**

@@ -1,26 +1,171 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* ═══════════════════════════════════════════════════════════════
+     PALETTE "BLEU #1D4079 & OR CHAMPAGNE"
+     - Bleu : #1D4079 (dominant, exact)
+     - Or : véritable, chaud, sobre (pas jaune, pas marron)
+     - Neutres : ivoire, blanc, gris très clairs
+     - Accent romantique : rose poudré très discret
+     ═══════════════════════════════════════════════════════════════ */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* ─── Bleu #1D4079 (couleur principale) ─── */
+  --color-royal-50:  #eef2f9;
+  --color-royal-100: #d9e2f0;
+  --color-royal-200: #b4c5e0;
+  --color-royal-300: #88a3cd;
+  --color-royal-400: #5b7db3;
+  --color-royal-500: #3d5f97;
+  --color-royal-600: #1d4079;   /* ← COULEUR OBLIGATOIRE */
+  --color-royal-700: #193566;
+  --color-royal-800: #142a50;
+  --color-royal-900: #0f1f3c;
+  --color-royal-950: #081225;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* ─── Or véritable (chaud, sobre, pas criard) ─── */
+  --color-gold-50:  #fdfbf4;
+  --color-gold-100: #faf3df;
+  --color-gold-200: #f3e4b6;
+  --color-gold-300: #e9d088;
+  --color-gold-400: #dcb85b;   /* ← OR CHAUD PRINCIPAL */
+  --color-gold-500: #c9a043;   /* ← OR PROFOND */
+  --color-gold-600: #a98236;
+  --color-gold-700: #87652c;
+  --color-gold-800: #6a4f26;
+  --color-gold-900: #4f3b1e;
+
+  /* ─── Champagne (or pâle, très doux) ─── */
+  --color-champagne-50:  #fdfaf3;
+  --color-champagne-100: #faf1e0;
+  --color-champagne-200: #f2e2bc;
+  --color-champagne-300: #e8ce94;
+  --color-champagne-400: #d9b46b;
+
+  /* ─── Ivoire / crème (fonds clairs) ─── */
+  --color-ivory-50:  #fffefb;
+  --color-ivory-100: #fdfaf3;
+  --color-ivory-200: #f8f2e6;
+
+  /* ─── Rose poudré (touche romantique très légère) ─── */
+  --color-blush-50:  #fdf8f6;
+  --color-blush-100: #f8ebe6;
+  --color-blush-200: #f1d5cb;
+
+  /* ─── Typographie ─── */
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-serif:   var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans:    var(--font-inter), system-ui, sans-serif;
+
+  /* ─── Animations (sobres) ─── */
+  --animate-shimmer: shimmer 8s linear infinite;
+  --animate-twinkle: twinkle 5s ease-in-out infinite;
+  --animate-float:   float 10s ease-in-out infinite;
+
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 0.85; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    border-color: var(--color-royal-100);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-ivory-100);
+    color: var(--color-royal-900);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* ─── Or véritable — dégradé texte sobre ─── */
+  .gold-text {
+    background: linear-gradient(
+      135deg,
+      #dcb85b 0%,
+      #e8ce94 25%,
+      #c9a043 50%,
+      #e8ce94 75%,
+      #dcb85b 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 10s linear infinite;
+  }
+
+  /* ─── Or solide (sans animation) ─── */
+  .gold-solid {
+    color: var(--color-gold-500);
+  }
+
+  /* ─── Bordure or dégradée ─── */
+  .gold-border {
+    position: relative;
+    background: linear-gradient(var(--color-ivory-50), var(--color-ivory-50)) padding-box,
+                linear-gradient(135deg, #dcb85b, #c9a043, #e8ce94) border-box;
+    border: 1px solid transparent;
+  }
+
+  /* ─── Fond bleu royal avec texture très discrète ─── */
+  .royal-bg {
+    background-color: var(--color-royal-600);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,255,255,0.04) 0%, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(220,184,91,0.06) 0%, transparent 40%);
+  }
+
+  /* ─── Ombre or douce ─── */
+  .shadow-gold {
+    box-shadow:
+      0 4px 20px rgba(201, 160, 67, 0.12),
+      0 1px 3px rgba(29, 64, 121, 0.06);
+  }
+
+  .shadow-gold-lg {
+    box-shadow:
+      0 20px 50px -25px rgba(201, 160, 67, 0.35),
+      0 8px 20px -10px rgba(29, 64, 121, 0.1);
+  }
+
+  /* ─── Halo doux (pour accents) ─── */
+  .glow-gold {
+    filter: drop-shadow(0 0 8px rgba(220, 184, 91, 0.4));
+  }
 }

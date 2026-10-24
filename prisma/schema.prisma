@@ -1,0 +1,305 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────
+// ADMIN
+// ─────────────────────────────
+
+model Admin {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  role         String    @default("ADMIN")
+  active       Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  auditLogs AuditLog[]
+
+  @@map("admins")
+}
+
+// ─────────────────────────────
+// WEDDING
+// ─────────────────────────────
+
+model Wedding {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  brideName   String
+  groomName   String
+  weddingDate DateTime
+  tagline     String?
+  heroImage   String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  events         Event[]
+  accommodations Accommodation[]
+  wishlistItems  WishlistItem[]
+  galleryItems   GalleryItem[]
+  guests         Guest[]
+  invitations    Invitation[]
+  settings       SiteSetting[]
+
+  @@map("weddings")
+}
+
+// ─────────────────────────────
+// EVENT
+// ─────────────────────────────
+
+model Event {
+  id          String   @id @default(cuid())
+  weddingId   String
+  title       String
+  description String?
+  date        DateTime
+  time        String
+  endTime    String?
+  location    String
+  address     String?
+  photoSession String?
+  latitude    Float?
+  longitude   Float?
+  mapsUrl     String?
+  position    Int      @default(0)
+  dressCode      String?
+  dressCodeNote  String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  wedding Wedding @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+
+  @@index([weddingId, position])
+  @@map("events")
+}
+
+// ─────────────────────────────
+// ACCOMMODATION
+// ─────────────────────────────
+
+model Accommodation {
+  id          String   @id @default(cuid())
+  weddingId   String
+  name        String
+  description String?
+  address     String
+  phones      String[]
+  image       String?
+  link        String?
+  position    Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  wedding Wedding @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+
+  @@index([weddingId, position])
+  @@map("accommodations")
+}
+
+// ─────────────────────────────
+// WISHLIST
+// ─────────────────────────────
+
+model WishlistItem {
+  id          String   @id @default(cuid())
+  weddingId   String
+  title       String
+  description String?
+  image       String?
+  url         String?
+  category    String?
+  priority    Int      @default(0)
+  position    Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  wedding Wedding @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+
+  @@index([weddingId, position])
+  @@map("wishlist_items")
+}
+
+// ─────────────────────────────
+// GALLERY
+// ─────────────────────────────
+
+model GalleryItem {
+  id        String   @id @default(cuid())
+  weddingId String
+  url       String
+  alt       String?
+  position  Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  wedding Wedding @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+
+  @@index([weddingId, position])
+  @@map("gallery_items")
+}
+
+// ─────────────────────────────
+// GUEST
+// ─────────────────────────────
+
+model Guest {
+  id        String   @id @default(cuid())
+  weddingId String
+  firstName String
+  lastName  String
+  phone     String?
+  email     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  wedding    Wedding     @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+  invitation Invitation?
+
+  @@index([weddingId])
+  @@index([lastName, firstName])
+  @@map("guests")
+}
+
+// ─────────────────────────────
+// INVITATION
+// ─────────────────────────────
+
+model Invitation {
+  id            String           @id @default(cuid())
+  guestId       String           @unique
+  weddingId     String
+  identifier    String           @unique
+  status        InvitationStatus @default(CONFIRMED)
+  qrCodeUrl     String?
+  qrCodeKey     String?
+  qrGeneratedAt DateTime?
+  checkedInAt   DateTime?
+  checkedInBy   String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  guest   Guest   @relation(fields: [guestId], references: [id], onDelete: Cascade)
+  wedding Wedding @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+
+  whatsappMessages WhatsAppMessage[]
+  checkInLogs      CheckInLog[]
+
+  @@index([weddingId])
+  @@index([status])
+  @@map("invitations")
+}
+
+enum InvitationStatus {
+  CONFIRMED
+  REVOKED
+  EXPIRED
+  CHECKED_IN
+}
+
+// ─────────────────────────────
+// WHATSAPP
+// ─────────────────────────────
+
+model WhatsAppMessage {
+  id           String        @id @default(cuid())
+  invitationId String?
+  recipient    String
+  type         String
+  content      String
+  status       MessageStatus @default(PENDING)
+  error        String?
+  sentAt       DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  invitation Invitation? @relation(fields: [invitationId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@map("whatsapp_messages")
+}
+
+enum MessageStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+model WhatsAppConfig {
+  id              String    @id @default("default")
+  adminPhone      String?
+  isConnected     Boolean   @default(false)
+  lastConnectedAt DateTime?
+  updatedAt       DateTime  @updatedAt
+
+  @@map("whatsapp_config")
+}
+
+// ─────────────────────────────
+// CHECK-IN
+// ─────────────────────────────
+
+model CheckInLog {
+  id           String   @id @default(cuid())
+  invitationId String
+  scannedAt    DateTime @default(now())
+  scannedBy    String?
+  device       String?
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId])
+  @@map("check_in_logs")
+}
+
+// ─────────────────────────────
+// AUDIT
+// ─────────────────────────────
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  adminId   String?
+  action    String
+  entity    String?
+  entityId  String?
+  metadata  Json?
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  admin Admin? @relation(fields: [adminId], references: [id], onDelete: SetNull)
+
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ─────────────────────────────
+// SETTINGS
+// ─────────────────────────────
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  weddingId String
+  key       String
+  value     String
+  updatedAt DateTime @updatedAt
+
+  wedding Wedding @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+
+  @@unique([weddingId, key])
+  @@map("site_settings")
+}
