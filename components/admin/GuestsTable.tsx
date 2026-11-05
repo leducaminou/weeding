@@ -52,7 +52,7 @@ export function GuestsTable({
 }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const [search, setSearch] = useState(currentSearch);
   const [busyId, setBusyId] = useState<string | null>(null);
 

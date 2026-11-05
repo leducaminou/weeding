@@ -169,7 +169,7 @@ export function ProgramTimeline({
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-sm text-gold-700 border-b border-gold-500/40 hover:border-gold-500 hover:text-gold-600 transition-colors pb-0.5"
                       >
-                        Voir l'itinéraire
+                        Voir l&apos;itinéraire
                         <span aria-hidden>→</span>
                       </a>
                     </div>

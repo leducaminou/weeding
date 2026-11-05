@@ -8,7 +8,7 @@ import { FloralCorner } from "@/components/ui/FloralCorner";
 import { SITE } from "@/config/site";
 
 export function CouplePresentation({ images }: { images: string[] }) {
-  const [img1, img2, img3, img4] = images;
+  const [, img2, img3, img4] = images;
 
   return (
     <Section id="couple" className="relative bg-ivory-50">
@@ -97,7 +97,7 @@ export function CouplePresentation({ images }: { images: string[] }) {
               «
             </span>
             <p className="relative font-display text-base sm:text-lg text-royal-800 leading-relaxed italic text-center">
-              L'amour ne consiste pas à se regarder l'un l'autre, mais à
+              L&apos;amour ne consiste pas à se regarder l&apos;un l&apos;autre, mais à
               regarder ensemble dans la même direction.
             </p>
             <span className="absolute bottom-1 right-3 text-4xl text-gold-400/40 font-serif leading-none">

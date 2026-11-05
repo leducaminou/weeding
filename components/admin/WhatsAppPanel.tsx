@@ -184,7 +184,7 @@ export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
 
         <div className="mt-6 pt-5 border-t border-slate-100">
           <h3 className="text-sm font-semibold text-slate-900 mb-1">
-            Test d'envoi
+            Test d&apos;envoi
           </h3>
           <p className="text-xs text-slate-500 mb-3">
             Envoie un message de test au numéro administrateur.

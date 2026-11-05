@@ -102,7 +102,7 @@ export function RsvpForm() {
       </Button>
 
       <p className="text-xs text-royal-800/50 text-center leading-relaxed">
-        Vos informations restent confidentielles. Le numéro de téléphone n'est
+        Vos informations restent confidentielles. Le numéro de téléphone n&apos;est
         jamais affiché publiquement.
       </p>
     </motion.form>

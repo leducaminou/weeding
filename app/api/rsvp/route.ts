@@ -67,7 +67,7 @@ export async function POST(req: Request) {
 
   // Création Guest + Invitation en transaction
   const identifier = await generateUniqueIdentifier();
-  const { guest, invitation } = await prisma.$transaction(async (tx) => {
+  const { invitation } = await prisma.$transaction(async (tx) => {
     const guest = await tx.guest.create({
       data: {
         weddingId: wedding.id,

@@ -79,22 +79,27 @@ export interface CachedGalleryItem {
 
 export const getWedding = unstable_cache(
   async (): Promise<CachedWedding | null> => {
-    const w = await prisma.wedding.findFirst({
-      where: { active: true },
-      include: { settings: true },
-    });
-    if (!w) return null;
+    try {
+      const w = await prisma.wedding.findFirst({
+        where: { active: true },
+        include: { settings: true },
+      });
+      if (!w) return null;
 
-    return {
-      ...w,
-      weddingDate: w.weddingDate.toISOString(),
-      createdAt: w.createdAt.toISOString(),
-      updatedAt: w.updatedAt.toISOString(),
-      settings: w.settings.map((s) => ({
-        ...s,
-        updatedAt: s.updatedAt.toISOString(),
-      })),
-    };
+      return {
+        ...w,
+        weddingDate: w.weddingDate.toISOString(),
+        createdAt: w.createdAt.toISOString(),
+        updatedAt: w.updatedAt.toISOString(),
+        settings: w.settings.map((s) => ({
+          ...s,
+          updatedAt: s.updatedAt.toISOString(),
+        })),
+      };
+    } catch (error) {
+      console.error("Unable to load the active wedding during build or render:", error);
+      return null;
+    }
   },
   ["wedding"],
   { tags: ["wedding"], revalidate: 3600 }

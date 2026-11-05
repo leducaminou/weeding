@@ -1,5 +1,5 @@
 import makeWASocket, {
-  useMultiFileAuthState,
+  useMultiFileAuthState as loadMultiFileAuthState,
   DisconnectReason,
   type WASocket,
 } from "@whiskeysockets/baileys";
@@ -25,7 +25,7 @@ export async function getWhatsAppClient(): Promise<Client | null> {
 export async function initWhatsAppClient(): Promise<Client | null> {
   if (instance?.isConnected) return instance;
 
-  const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR);
+  const { state, saveCreds } = await loadMultiFileAuthState(AUTH_DIR);
 
   const socket = makeWASocket({
     auth: state,

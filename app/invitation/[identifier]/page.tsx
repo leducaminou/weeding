@@ -42,8 +42,8 @@ export default async function InvitationPage({
               Invitation révoquée
             </h1>
             <p className="mt-4 text-sm text-night-700/70 max-w-md">
-              Cette invitation n'est plus valide. Merci de contacter
-              l'organisateur.
+              Cette invitation n&apos;est plus valide. Merci de contacter
+              l&apos;organisateur.
             </p>
           </Section>
         </main>
