@@ -67,10 +67,7 @@ export function GuestsTable({
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
   const [search, setSearch] = useState(currentSearch);
-  const [busyId, setBusyId] = useState<string | null>(null);
-    const [editing, setEditing] = useState<Item | null>(null);
-    const [creating, setCreating] = useState(false);
-    const [busy, setBusy] = useState<string | null>(null);
+  
 
   useEffect(() => {
     const t = setTimeout(() => {
