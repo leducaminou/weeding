@@ -340,11 +340,13 @@ async function main() {
       {
         weddingId: wedding.id,
         firstName: "Dr Tankoua",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mme Tankoua",
+        lastName: "",
       },
     ],
   });
