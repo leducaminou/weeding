@@ -93,7 +93,7 @@ export function GuestsTable({
 
   function setPage(p: number) {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("page", string(p));
+    params.set("page", String(p));
     startTransition(() => router.push(`/admin/invites?${params.toString()}`));
   }
 
