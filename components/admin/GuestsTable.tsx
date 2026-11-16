@@ -12,7 +12,6 @@ import {
   RotateCcw,
   Trash2,
   Loader2,
-  Plus,
 } from "lucide-react";
 import { GuestStatusBadge } from "./GuestStatusBadge";
 import { AdminCard } from "./AdminCard";
