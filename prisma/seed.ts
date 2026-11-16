@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Gender, PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -38,6 +38,444 @@ async function main() {
   });
   console.log("✅ Wedding :", wedding.slug);
 
+  await prisma.guest.createMany({
+    data: [
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "TOUMI",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "LIENOU",
+        lastName: "Sandrine",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "TOUMI",
+        lastName: "Ange",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "TCHUENTE",
+        lastName: "Gilbert",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "WAMBO",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "WAMBO",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "TOUSSE",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "TOUSSE",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "TCHATO",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "TCHATO",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "NKWAIN",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "NKWAIN",
+      },
+      {
+        weddingId: wedding.id,
+        firstName: "TCHUENTE",
+        lastName: "MADELEINE",
+      },
+
+      {
+        weddingId: wedding.id,
+        firstName: "Colonel Durand",
+        lastName: "CASTRO",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "Georgette",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "MOCTO",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "MOCTO",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "JAVELOT",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "JAVELOT",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "CHRONE",
+        lastName: "Véronique",
+      },
+      {
+        weddingId: wedding.id,
+        firstName: "PETROLEUM",
+        lastName: "ENGINEER 1",
+      },
+
+      {
+        weddingId: wedding.id,
+        firstName: "PETROLEUM",
+        lastName: "ENGINEER 2",
+      },
+
+      {
+        weddingId: wedding.id,
+        firstName: "Père Émile",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "Tankeu",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "Tankeu",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "Kanmogne",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "Kanmogne",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "Bogne",
+        lastName: "Gaelle",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "Bogne",
+      },
+
+      {
+        weddingId: wedding.id,
+        firstName: "Ella",
+        lastName: "Paul",
+      },
+      {
+        weddingId: wedding.id,
+        firstName: "NTSAGUIM",
+        lastName: "Robert",
+      },
+
+      {
+        weddingId: wedding.id,
+        firstName: "NTSAGUIM",
+        lastName: "Fernande",
+      },
+
+      {
+        weddingId: wedding.id,
+        firstName: "NTSAGUIM",
+        lastName: "Sophy",
+      },
+
+      {
+        weddingId: wedding.id,
+        firstName: "NTSAGUIM",
+        lastName: "Martine",
+      },
+      {
+        weddingId: wedding.id,
+        firstName: "NTSAGUIM",
+        lastName: "Teddy",
+      },
+
+      {
+        weddingId: wedding.id,
+        firstName: "NTSAGUIM",
+        lastName: "Stephy",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Maitre,
+        firstName: " TSAMO",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "TSAMO",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "ASSOMO Amédée",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "ASSOMO",
+        lastName: "Amédée",
+      },
+
+      {
+        weddingId: wedding.id,
+        firstName: "Tonnang",
+        lastName: "Sophine",
+      },
+
+      {
+        weddingId: wedding.id,
+        firstName: "Fouelefack",
+        lastName: "martine",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Maitre,
+        firstName: " Kengne",
+        lastName: "Fabien",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "Kengne",
+        lastName: "Fabien",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "DONGMO",
+        lastName: "innocent",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "DONGMO",
+        lastName: "innocent",
+      },
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "Tsamo",
+        lastName: "Emile",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "Tsamo",
+        lastName: "Emile",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "Kamdem",
+        lastName: "Jean Paul",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "Kamdem",
+        lastName: "Jean Paul",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mr,
+        firstName: "Nguimezap",
+        lastName: "Paul",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "Nguimezap",
+        lastName: "Paul",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Dr,
+        firstName: "Tankoua",
+      },
+
+      {
+        weddingId: wedding.id,
+        gender: Gender.Mme,
+        firstName: "Tankoua",
+      },
+    ],
+  });
+
+  await prisma.wishlistItem.createMany({
+   
+ data: [
+      {
+        weddingId: wedding.id,
+        title: "Un congélateur",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6Cz3SRKVPcPZ37Ukxm6puywbOMI5v4FdX1laAq",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6Cz3SRKVPcPZ37Ukxm6puywbOMI5v4FdX1laAq",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Une salle à manger de 6 places",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6C0X4fjR64MSkzibLZaT9vNPrCBAI5je1FdKH3",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6C0X4fjR64MSkzibLZaT9vNPrCBAI5je1FdKH3",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Des couverts de services",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6C4b8Fu579KqcF7wkdHmh135MYUasnLfEe6Qvg",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6C4b8Fu579KqcF7wkdHmh135MYUasnLfEe6Qvg",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Un téléviseur",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CUxaekBQDlS3c4U5VTMtavrqBhxbO2y6mG1Y9",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CUxaekBQDlS3c4U5VTMtavrqBhxbO2y6mG1Y9",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Un Micro-onde",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6Cm47kHgTJlq3ihfM8S6KZAsvND9URw42CeW7g",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6Cm47kHgTJlq3ihfM8S6KZAsvND9URw42CeW7g",
+      },
+    
+      {
+        weddingId: wedding.id,
+        title: "Une machine à Jus de fruits",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CUMrXgyQDlS3c4U5VTMtavrqBhxbO2y6mG1Y9",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CUMrXgyQDlS3c4U5VTMtavrqBhxbO2y6mG1Y9",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Un frigo",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6ChD2th2iIANBMyJdxXKcrSDzOV752RP8UT4jm",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6ChD2th2iIANBMyJdxXKcrSDzOV752RP8UT4jm",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Un salon avec table centrale",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CTYw2YjDSKTjxc04fRCyDovr6LE15kANMmlaH",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CTYw2YjDSKTjxc04fRCyDovr6LE15kANMmlaH",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Des services de verres",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CydKkFZVYXs03tj41mhck9oS6FClqWeG8zrxL",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CydKkFZVYXs03tj41mhck9oS6FClqWeG8zrxL",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Un kit de machine à écraser",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CkgrAS8qJjgxYV0dn4SAwQEUvMLlPemtNoh71",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CkgrAS8qJjgxYV0dn4SAwQEUvMLlPemtNoh71",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Une table et chaise de bureau",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CHX5iCIuol9rFoWKT4v3dDkBjZqc65zQSsguU",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CHX5iCIuol9rFoWKT4v3dDkBjZqc65zQSsguU",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Des marmites et poêles",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6ClZGkRyeYj65uB2GfxwdzALmg3hIqaroJ0eP1",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6ClZGkRyeYj65uB2GfxwdzALmg3hIqaroJ0eP1",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Un disque dur externe 2 To",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CKEg7wddH4f8MEWjCPd5za7BtlLZ3OnJgrAI0",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CKEg7wddH4f8MEWjCPd5za7BtlLZ3OnJgrAI0",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Une machine à laver",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CSfqfD3mQp8AeNsgJm4kDZu0rjYFTKRVtBvXf",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CSfqfD3mQp8AeNsgJm4kDZu0rjYFTKRVtBvXf",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Un regulateur de tension 2000 VA",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CpTHdLzlRj8euWoQD0btCLEYPhKpOfVM6B59y",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CpTHdLzlRj8euWoQD0btCLEYPhKpOfVM6B59y",
+      },
+      {
+        weddingId: wedding.id,
+        title: "Un kit pour hygiène domestique",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CCDqoaXS8SsEq0kvi5zfG6eINdgoPuWLFUOwK",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6CCDqoaXS8SsEq0kvi5zfG6eINdgoPuWLFUOwK",
+      },
+      {
+        weddingId: wedding.id,
+        title: "3 climatiseurs",
+        url: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6C7lgrzQUGNzg6Ek9x54IeioFCPvmKqfc2ZUlA",
+        image: "https://gmdsoqjovj.ufs.sh/f/vTlVBzpXla6C7lgrzQUGNzg6Ek9x54IeioFCPvmKqfc2ZUlA",
+      },
+    ]
+
+  })
+console.log("✅ WishList 666666666");
   // ─── Events ───
   await prisma.event.deleteMany({ where: { weddingId: wedding.id } });
   await prisma.event.createMany({
@@ -61,7 +499,8 @@ async function main() {
       {
         weddingId: wedding.id,
         title: "Mariage Civil",
-        description: "Célébration officielle de l'union devant l'officier d'état civil.",
+        description:
+          "Célébration officielle de l'union devant l'officier d'état civil.",
         date: new Date("2026-12-29T10:00:00Z"),
         time: "10h00",
         location: "Bangou — Le Tagidor",
@@ -77,10 +516,10 @@ async function main() {
         description: "Cérémonie religieuse célébrant l'union devant Dieu.",
         date: new Date("2026-12-29T14:00:00Z"),
         time: "14h00",
-        location: "Bangou — Le Tagidor",
+        location: "Paroisse catholique Saint Gilbert de Bangou- Situé 500m du Tagidor (15min en voiture) ",
         address: "Rte Bangou, Bangou, Région de l'Ouest, Cameroun",
         mapsUrl:
-          "https://maps.google.com/?q=Le+Tagidor+Garden+Resort+%26+Spa+Bangou",
+          "https://maps.google.com/?q=Paroisse+catholique+Saint+Gilbert+de+Bangou",
         position: 2,
         photoSession: "1h de séance photo",
       },

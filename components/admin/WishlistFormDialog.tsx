@@ -87,7 +87,7 @@ export function WishlistFormDialog({ open, item, onClose, onSaved }: Props) {
               <label className="text-xs text-slate-500 uppercase tracking-wide">
                 Titre *
               </label>
-              <input name="title" defaultValue={item?.title} required className={inputCls} />
+              <input name="title" defaultValue={item?.title } required className={inputCls} />
             </div>
             <div>
               <label className="text-xs text-slate-500 uppercase tracking-wide">

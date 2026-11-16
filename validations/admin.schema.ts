@@ -49,3 +49,14 @@ export const siteSettingSchema = z.object({
   key: z.string().trim().min(1).max(60),
   value: z.string().max(4000),
 });
+
+
+
+export const guestSchema = z.object({
+  firstName: z.string().trim().min(2).max(120),
+  lastName: z.string().trim().min(2).max(120).optional().nullable(),
+  gender: z.string().trim().max(60).optional().nullable(),
+  phone: z.string().trim().max(60).optional().nullable(),
+  email: z.string().trim().max(60).optional().nullable(),
+ 
+});

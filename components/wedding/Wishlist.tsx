@@ -41,22 +41,24 @@ export function Wishlist({ items }: { items: PublicWishlistItem[] }) {
           {items.map((item, i) => {
             const content = (
               <>
-                {item.image ? (
+                {item.url ? (
                   <div className="relative aspect-[4/3] overflow-hidden bg-royal-700">
                     <Image
-                      src={item.image}
+                      src={item.url}
                       alt={item.title}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-royal-900/60 via-transparent to-transparent" />
                   </div>
+
                 ) : (
                   <div className="aspect-[4/3] flex items-center justify-center bg-royal-700">
                     <Gift size={40} className="text-gold-400/60" />
                   </div>
                 )}
+               
                 <div className="flex flex-col gap-2 p-6 flex-1">
                   {item.category && (
                     <span className="text-[10px] tracking-[0.3em] text-gold-300 uppercase">

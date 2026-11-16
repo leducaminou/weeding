@@ -14,6 +14,7 @@ export const GuestAdminService = {
     if (search?.trim()) {
       const q = search.trim();
       where.OR = [
+        
         { firstName: { contains: q, mode: "insensitive" } },
         { lastName: { contains: q, mode: "insensitive" } },
         { phone: { contains: q } },

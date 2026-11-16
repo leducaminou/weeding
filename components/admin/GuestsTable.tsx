@@ -12,16 +12,19 @@ import {
   RotateCcw,
   Trash2,
   Loader2,
+  Plus,
 } from "lucide-react";
 import { GuestStatusBadge } from "./GuestStatusBadge";
 import { AdminCard } from "./AdminCard";
 import { formatDateFR, cn } from "@/lib/utils";
-import type { InvitationStatus } from "@prisma/client";
+import type { Gender, InvitationStatus } from "@prisma/client";
+// import { InvitesFormDialog } from "./InvitesFormDialog";
 
 interface GuestRow {
   id: string;
+  gender: Gender | null;
   firstName: string;
-  lastName: string;
+  lastName: string | null;
   phone: string | null;
   createdAt: Date;
   invitation: {
@@ -42,6 +45,16 @@ interface Props {
   currentStatus: string;
 }
 
+interface Item {
+  id: string;
+  weddingId: String;
+  firstName: String;
+  lastName:  String | null;
+  gender:  Gender | null;
+  phone:     String | null;
+  email:     String | null;
+}
+
 export function GuestsTable({
   items,
   total,
@@ -55,6 +68,9 @@ export function GuestsTable({
   const [, startTransition] = useTransition();
   const [search, setSearch] = useState(currentSearch);
   const [busyId, setBusyId] = useState<string | null>(null);
+    const [editing, setEditing] = useState<Item | null>(null);
+    const [creating, setCreating] = useState(false);
+    const [busy, setBusy] = useState<string | null>(null);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -173,6 +189,15 @@ export function GuestsTable({
             </button>
           ))}
         </div>
+          {/* <div className="flex justify-end mb-4">
+                <button
+                  onClick={() => setCreating(true)}
+                  className="inline-flex items-center gap-2 h-10 px-4 bg-slate-900 text-white text-sm rounded-md hover:bg-slate-800"
+                >
+                  <Plus size={14} />
+                  Nouvel invité
+                </button>
+              </div> */}
       </div>
 
       <AdminCard className="overflow-hidden">
@@ -208,7 +233,7 @@ export function GuestsTable({
                     <tr key={g.id} className="hover:bg-slate-50/60">
                       <td className="px-4 py-3">
                         <div className="font-medium text-slate-900">
-                          {g.firstName} {g.lastName}
+                         {g.gender} {g.firstName} {g.lastName}
                         </div>
                       </td>
                       <td className="px-4 py-3 hidden md:table-cell text-slate-600">
@@ -359,6 +384,24 @@ export function GuestsTable({
           </div>
         )}
       </AdminCard>
+
+      {/* <InvitesFormDialog
+              open={creating}
+              onClose={() => setCreating(false)}
+              onSaved={() => {
+                setCreating(false);
+                router.refresh();
+              }}
+            />
+            <InvitesFormDialog
+              open={!!editing}
+              item={editing ?? undefined}
+              onClose={() => setEditing(null)}
+              onSaved={() => {
+                setEditing(null);
+                router.refresh();
+              }}
+            /> */}
     </>
   );
 }

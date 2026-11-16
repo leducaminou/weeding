@@ -44,7 +44,7 @@ export async function POST(
 
   const result = await WhatsAppService.sendGuestInvitation({
     phone: guest.phone,
-    firstName: guest.firstName,
+    firstName: guest.gender ? guest.gender+" "+guest.firstName+" "+guest.lastName : guest.firstName,
     identifier: guest.invitation.identifier,
     qrUrl: guest.invitation.qrCodeUrl,
     template,
