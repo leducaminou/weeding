@@ -161,7 +161,6 @@ model Guest {
   weddingId String
   firstName String
   lastName  String?
-  gender  Gender?
   phone     String?
   email     String?
   createdAt DateTime @default(now())
@@ -175,13 +174,6 @@ model Guest {
   @@map("guests")
 }
 
-enum Gender {
-  Mme
-  Mr
-  Mlle
-  Dr
-  Maitre
-}
 // ─────────────────────────────
 // INVITATION
 // ─────────────────────────────

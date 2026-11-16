@@ -16,12 +16,11 @@ import {
 import { GuestStatusBadge } from "./GuestStatusBadge";
 import { AdminCard } from "./AdminCard";
 import { formatDateFR, cn } from "@/lib/utils";
-import type { Gender, InvitationStatus } from "@prisma/client";
+import type {  InvitationStatus } from "@prisma/client";
 // import { InvitesFormDialog } from "./InvitesFormDialog";
 
 interface GuestRow {
   id: string;
-  gender: Gender | null;
   firstName: string;
   lastName: string | null;
   phone: string | null;
@@ -49,7 +48,6 @@ interface Item {
   weddingId: string;
   firstName: string;
   lastName:  string | null;
-  gender:  Gender | null;
   phone:     string | null;
   email:     string | null;
 }
@@ -230,7 +228,7 @@ export function GuestsTable({
                     <tr key={g.id} className="hover:bg-slate-50/60">
                       <td className="px-4 py-3">
                         <div className="font-medium text-slate-900">
-                         {g.gender} {g.firstName} {g.lastName}
+                         {g.firstName} {g.lastName}
                         </div>
                       </td>
                       <td className="px-4 py-3 hidden md:table-cell text-slate-600">

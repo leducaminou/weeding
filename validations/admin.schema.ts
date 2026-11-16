@@ -55,7 +55,6 @@ export const siteSettingSchema = z.object({
 export const guestSchema = z.object({
   firstName: z.string().trim().min(2).max(120),
   lastName: z.string().trim().min(2).max(120).optional().nullable(),
-  gender: z.string().trim().max(60).optional().nullable(),
   phone: z.string().trim().max(60).optional().nullable(),
   email: z.string().trim().max(60).optional().nullable(),
  
