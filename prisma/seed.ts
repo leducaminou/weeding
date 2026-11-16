@@ -43,6 +43,7 @@ async function main() {
       {
         weddingId: wedding.id,
         firstName: "Mr TOUMI",
+        lastName: "",
       },
       {
         weddingId: wedding.id,
@@ -63,40 +64,48 @@ async function main() {
       {
         weddingId: wedding.id,
         firstName: "Mr WAMBO",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mme WAMBO",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mr TOUSSE",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mme TOUSSE",
+        lastName: "",
       },
       {
         weddingId: wedding.id,
         firstName: "Mr TCHATO",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mme TCHATO",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mr NKWAIN",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mme NKWAIN",
+        lastName: "",
       },
       {
         weddingId: wedding.id,
@@ -113,25 +122,30 @@ async function main() {
       {
         weddingId: wedding.id,
         firstName: "Mme Georgette",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mme MOCTO",
+        lastName: "",
       },
       {
         weddingId: wedding.id,
         firstName: "Mr MOCTO",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mme JAVELOT",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mme JAVELOT",
+        lastName: "",
       },
 
       {
@@ -154,24 +168,29 @@ async function main() {
       {
         weddingId: wedding.id,
         firstName: "Père Émile",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mr Tankeu",
+        lastName: "",
       },
       {
         weddingId: wedding.id,
         firstName: "Mme Tankeu",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mr Kanmogne",
+        lastName: "",
       },
       {
         weddingId: wedding.id,
         firstName: "Mme Kanmogne",
+        lastName: "",
       },
 
       {
@@ -182,6 +201,7 @@ async function main() {
       {
         weddingId: wedding.id,
         firstName: "Mr Bogne",
+        lastName: "",
       },
 
       {
@@ -227,15 +247,18 @@ async function main() {
       {
         weddingId: wedding.id,
         firstName: "Maitre TSAMO",
+        lastName: "",
       },
 
       {
         weddingId: wedding.id,
         firstName: "Mme TSAMO",
+        lastName: "",
       },
       {
         weddingId: wedding.id,
         firstName: "Mr ASSOMO Amédée",
+        lastName: "",
       },
 
       {

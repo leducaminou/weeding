@@ -160,7 +160,7 @@ model Guest {
   id        String   @id @default(cuid())
   weddingId String
   firstName String
-  lastName  String?
+  lastName  String @default("")
   phone     String?
   email     String?
   createdAt DateTime @default(now())

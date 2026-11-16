@@ -228,7 +228,7 @@ export function GuestsTable({
                     <tr key={g.id} className="hover:bg-slate-50/60">
                       <td className="px-4 py-3">
                         <div className="font-medium text-slate-900">
-                         {g.firstName} {g.lastName}
+                         {g.firstName} {g.lastName }
                         </div>
                       </td>
                       <td className="px-4 py-3 hidden md:table-cell text-slate-600">
