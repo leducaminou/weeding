@@ -46,12 +46,12 @@ interface Props {
 
 interface Item {
   id: string;
-  weddingId: String;
-  firstName: String;
-  lastName:  String | null;
+  weddingId: string;
+  firstName: string;
+  lastName:  string | null;
   gender:  Gender | null;
-  phone:     String | null;
-  email:     String | null;
+  phone:     string | null;
+  email:     string | null;
 }
 
 export function GuestsTable({
@@ -66,6 +66,7 @@ export function GuestsTable({
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
   const [search, setSearch] = useState(currentSearch);
+  const [busyId, setBusyId] = useState<string | null>();
   
 
   useEffect(() => {
@@ -92,7 +93,7 @@ export function GuestsTable({
 
   function setPage(p: number) {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("page", String(p));
+    params.set("page", string(p));
     startTransition(() => router.push(`/admin/invites?${params.toString()}`));
   }
 

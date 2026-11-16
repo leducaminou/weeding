@@ -10,7 +10,7 @@ import { FloralCorner } from "@/components/ui/FloralCorner";
 
 interface Props {
   firstName: string;
-  lastName: string;
+  lastName: string | null;
   identifier: string;
   qrUrl: string | null;
   isNew?: boolean;
@@ -92,7 +92,7 @@ export function InvitationCard({
           Invité
         </span>
         <h2 className="mt-3 font-serif text-3xl text-royal-800">
-          {firstName} {lastName}
+          {lastName ? lastName+' '+firstName : firstName}
         </h2>
 
         <CelestialOrnament className="my-4" />
