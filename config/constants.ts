@@ -13,7 +13,7 @@ export const QR_CLEANUP_DATE = new Date("2027-01-16T00:00:00Z");
 
 // ─── RSVP ───
 export const RSVP_RATE_LIMIT = { max: 5, windowMs: 60_000 };
-export const RSVP_DUPLICATE_WINDOW_MS = 5 * 60_000;
+export const RSVP_SEARCH_RATE_LIMIT = { max: 60, windowMs: 60_000 };
 
 // ─── Auth ───
 export const SESSION_COOKIE_NAME = "lf_session";

@@ -183,7 +183,7 @@ model Invitation {
   guestId       String           @unique
   weddingId     String
   identifier    String           @unique
-  status        InvitationStatus @default(CONFIRMED)
+  status        InvitationStatus @default(PENDING)
   qrCodeUrl     String?
   qrCodeKey     String?
   qrGeneratedAt DateTime?
@@ -208,6 +208,7 @@ enum InvitationStatus {
   REVOKED
   EXPIRED
   CHECKED_IN
+  PENDING
 }
 
 // ─────────────────────────────

@@ -92,7 +92,7 @@ export function InvitationCard({
           Invité
         </span>
         <h2 className="mt-3 font-serif text-3xl text-royal-800">
-          {lastName ? lastName+' '+firstName : firstName}
+          {lastName ? firstName+' '+lastName : firstName}
         </h2>
 
         <CelestialOrnament className="my-4" />

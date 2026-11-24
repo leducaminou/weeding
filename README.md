@@ -20,3 +20,14 @@ npm install
 npx prisma db push
 npm run db:seed
 npm run dev
+```
+
+Pour synchroniser uniquement la liste des invités, sans relancer les autres
+données de démonstration :
+
+```bash
+pnpm db:seed:guests
+```
+
+Cette synchronisation dédoublonne les noms identiques et conserve toutes les
+invitations confirmées ou déjà utilisées.

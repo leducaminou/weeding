@@ -12,9 +12,14 @@ import {
   RotateCcw,
   Trash2,
   Loader2,
+  Plus,
+  CheckCircle2,
 } from "lucide-react";
 import { GuestStatusBadge } from "./GuestStatusBadge";
 import { AdminCard } from "./AdminCard";
+import { ConfirmAttendanceDialog } from "./ConfirmAttendanceDialog";
+import { GuestFormDialog } from "./GuestFormDialog";
+import { GuestPhoneDialog } from "./GuestPhoneDialog";
 import { formatDateFR, cn } from "@/lib/utils";
 import type {  InvitationStatus } from "@prisma/client";
 // import { InvitesFormDialog } from "./InvitesFormDialog";
@@ -43,13 +48,13 @@ interface Props {
   currentStatus: string;
 }
 
-interface Item {
-  id: string;
-  weddingId: string;
-  firstName: string;
-  lastName:  string | null;
-  phone:     string | null;
-  email:     string | null;
+interface BulkSendResponse {
+  sent: number;
+  failed: number;
+  skipped: number;
+  withoutPhone: number;
+  hasMore: boolean;
+  nextCursor: string | null;
 }
 
 export function GuestsTable({
@@ -65,7 +70,11 @@ export function GuestsTable({
   const [, startTransition] = useTransition();
   const [search, setSearch] = useState(currentSearch);
   const [busyId, setBusyId] = useState<string | null>();
-  
+  const [creatingGuest, setCreatingGuest] = useState(false);
+  const [confirmingGuest, setConfirmingGuest] = useState<GuestRow | null>(null);
+  const [sendingQrGuest, setSendingQrGuest] = useState<GuestRow | null>(null);
+  const [bulkSending, setBulkSending] = useState(false);
+  const [bulkResult, setBulkResult] = useState<string | null>(null);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -98,20 +107,72 @@ export function GuestsTable({
   async function action(id: string, path: string) {
     setBusyId(id);
     try {
-      await fetch(path, { method: "POST" });
+      const res = await fetch(path, { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) {
+        window.alert(data.error ?? "Impossible d'effectuer cette action.");
+        return;
+      }
       router.refresh();
     } finally {
       setBusyId(null);
     }
   }
 
-  async function resendWhatsApp(id: string) {
-    setBusyId(id);
+  async function sendBulkQr() {
+    if (
+      !window.confirm(
+        "Envoyer le QR code par WhatsApp à tous les invités ayant confirmé et renseigné un numéro ?"
+      )
+    ) {
+      return;
+    }
+
+    setBulkSending(true);
+    setBulkResult(null);
+    let cursor: string | null = null;
+    let sent = 0;
+    let failed = 0;
+    let skipped = 0;
+    let withoutPhone = 0;
+    let firstBatch = true;
+
     try {
-      await fetch(`/api/admin/guests/${id}/resend-whatsapp`, { method: "POST" });
+      let hasMore = false;
+      do {
+        const res: Response = await fetch("/api/admin/guests/bulk-send-qr", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ cursor }),
+        });
+        const data: BulkSendResponse & { error?: string } = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error ?? "L'envoi groupé a échoué.");
+        }
+
+        sent += data.sent;
+        failed += data.failed;
+        skipped += data.skipped;
+        if (firstBatch) {
+          withoutPhone = data.withoutPhone;
+          firstBatch = false;
+        }
+        cursor = data.nextCursor;
+        hasMore = data.hasMore;
+      } while (hasMore);
+
+      setBulkResult(
+        `${sent} envoyé(s), ${failed} échec(s), ${withoutPhone} confirmé(s) sans numéro${
+          skipped ? `, ${skipped} ignoré(s)` : ""
+        }.`
+      );
       router.refresh();
+    } catch (error) {
+      setBulkResult(
+        error instanceof Error ? error.message : "L'envoi groupé a échoué."
+      );
     } finally {
-      setBusyId(null);
+      setBulkSending(false);
     }
   }
 
@@ -146,6 +207,7 @@ export function GuestsTable({
 
   const STATUS_TABS = [
     { value: "ALL", label: "Tous" },
+    { value: "PENDING", label: "À confirmer" },
     { value: "CONFIRMED", label: "Confirmés" },
     { value: "REVOKED", label: "Révoqués" },
     { value: "EXPIRED", label: "Expirés" },
@@ -184,15 +246,34 @@ export function GuestsTable({
             </button>
           ))}
         </div>
-          {/* <div className="flex justify-end mb-4">
-                <button
-                  onClick={() => setCreating(true)}
-                  className="inline-flex items-center gap-2 h-10 px-4 bg-slate-900 text-white text-sm rounded-md hover:bg-slate-800"
-                >
-                  <Plus size={14} />
-                  Nouvel invité
-                </button>
-              </div> */}
+        <div className="flex flex-col gap-2 shrink-0">
+          <div className="flex gap-2">
+            <button
+              onClick={sendBulkQr}
+              disabled={bulkSending}
+              className="inline-flex items-center justify-center gap-2 h-10 px-4 bg-emerald-700 text-white text-sm rounded-md hover:bg-emerald-800 disabled:opacity-50"
+            >
+              {bulkSending ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : (
+                <Send size={14} />
+              )}
+              {bulkSending ? "Envoi en cours..." : "Envoyer les QR confirmés"}
+            </button>
+            <button
+              onClick={() => setCreatingGuest(true)}
+              className="inline-flex items-center justify-center gap-2 h-10 px-4 bg-slate-900 text-white text-sm rounded-md hover:bg-slate-800"
+            >
+              <Plus size={14} />
+              Nouvel invité
+            </button>
+          </div>
+          {bulkResult && (
+            <p className="text-xs text-slate-600" role="status">
+              {bulkResult}
+            </p>
+          )}
+        </div>
       </div>
 
       <AdminCard className="overflow-hidden">
@@ -247,7 +328,7 @@ export function GuestsTable({
                         {g.invitation ? (
                           <GuestStatusBadge status={g.invitation.status} />
                         ) : (
-                          <span className="text-slate-300">—</span>
+                          <GuestStatusBadge status="PENDING" />
                         )}
                       </td>
                       <td className="px-4 py-3 hidden lg:table-cell">
@@ -300,16 +381,27 @@ export function GuestsTable({
                                   <Download size={14} />
                                 </button>
                               )}
-                              {g.phone && (
+                              {g.invitation?.status === "CONFIRMED" && (
                                 <button
-                                  onClick={() => resendWhatsApp(g.id)}
+                                  onClick={() => setSendingQrGuest(g)}
                                   className="p-1.5 rounded hover:bg-slate-100 text-slate-500 hover:text-slate-900"
-                                  title="Renvoyer WhatsApp"
+                                  title="Envoyer le QR code par WhatsApp"
                                 >
                                   <Send size={14} />
                                 </button>
                               )}
-                              {g.invitation?.status === "CONFIRMED" && (
+                              {(!g.invitation ||
+                                g.invitation.status === "PENDING") && (
+                                <button
+                                  onClick={() => setConfirmingGuest(g)}
+                                  className="p-1.5 rounded hover:bg-emerald-50 text-slate-500 hover:text-emerald-700"
+                                  title="Confirmer la présence"
+                                >
+                                  <CheckCircle2 size={14} />
+                                </button>
+                              )}
+                              {(g.invitation?.status === "CONFIRMED" ||
+                                g.invitation?.status === "PENDING") && (
                                 <button
                                   onClick={() =>
                                     action(g.id, `/api/admin/guests/${g.id}/revoke`)
@@ -380,23 +472,42 @@ export function GuestsTable({
         )}
       </AdminCard>
 
-      {/* <InvitesFormDialog
-              open={creating}
-              onClose={() => setCreating(false)}
-              onSaved={() => {
-                setCreating(false);
-                router.refresh();
-              }}
-            />
-            <InvitesFormDialog
-              open={!!editing}
-              item={editing ?? undefined}
-              onClose={() => setEditing(null)}
-              onSaved={() => {
-                setEditing(null);
-                router.refresh();
-              }}
-            /> */}
+      <GuestFormDialog
+        open={creatingGuest}
+        onClose={() => setCreatingGuest(false)}
+        onSaved={() => {
+          setCreatingGuest(false);
+          router.refresh();
+        }}
+      />
+      <ConfirmAttendanceDialog
+        key={confirmingGuest?.id ?? "none"}
+        guest={confirmingGuest}
+        onClose={() => setConfirmingGuest(null)}
+        onSaved={(whatsappSent) => {
+          setConfirmingGuest(null);
+          router.refresh();
+          if (whatsappSent === false) {
+            window.alert(
+              "Présence confirmée, mais l'envoi WhatsApp a échoué. Vérifiez la connexion puis renvoyez le QR."
+            );
+          } else if (whatsappSent === null) {
+            window.alert(
+              "Présence confirmée. Aucun numéro WhatsApp n'est renseigné ; le QR n'a pas été envoyé."
+            );
+          }
+        }}
+      />
+      <GuestPhoneDialog
+        key={sendingQrGuest?.id ?? "none"}
+        guest={sendingQrGuest}
+        onClose={() => setSendingQrGuest(null)}
+        onSent={(message) => {
+          setSendingQrGuest(null);
+          router.refresh();
+          window.alert(message);
+        }}
+      />
     </>
   );
 }

@@ -5,9 +5,34 @@ import { InvitationService } from "./InvitationService";
 import { audit } from "@/lib/audit";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://loica-franck.com";
+const qrCreations = new Map<
+  string,
+  Promise<{ url: string; key: string; reused: boolean }>
+>();
 
 export const QRCodeService = {
   async ensureQrCode(invitationId: string, identifier: string) {
+    const existing = await InvitationService.getExistingQr(invitationId);
+    if (existing) return { ...existing, reused: true };
+
+    const pending = qrCreations.get(invitationId);
+    if (pending) {
+      const result = await pending;
+      return { ...result, reused: true };
+    }
+
+    const creation = this.createQrCode(invitationId, identifier);
+    qrCreations.set(invitationId, creation);
+    try {
+      return await creation;
+    } finally {
+      if (qrCreations.get(invitationId) === creation) {
+        qrCreations.delete(invitationId);
+      }
+    }
+  },
+
+  async createQrCode(invitationId: string, identifier: string) {
     const existing = await InvitationService.getExistingQr(invitationId);
     if (existing) return { ...existing, reused: true };
 

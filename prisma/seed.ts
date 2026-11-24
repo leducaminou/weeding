@@ -1,7 +1,157 @@
-import { PrismaClient } from "@prisma/client";
+import { InvitationStatus, PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
+
+interface SeedGuest {
+  weddingId: string;
+  firstName: string;
+  lastName: string;
+}
+
+function guestNameKey(firstName: string, lastName: string) {
+  return `${firstName} ${lastName}`
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+async function createPendingInvitation(guestId: string, weddingId: string) {
+  for (let attempt = 0; attempt < 10; attempt++) {
+    const letters =
+      String.fromCharCode(65 + Math.floor(Math.random() * 26)) +
+      String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    const digits = String(Math.floor(Math.random() * 100)).padStart(2, "0");
+    const identifier = `${letters}${digits}`;
+    const existing = await prisma.invitation.findUnique({
+      where: { identifier },
+      select: { id: true },
+    });
+    if (existing) continue;
+
+    return prisma.invitation.create({
+      data: {
+        guestId,
+        weddingId,
+        identifier,
+        status: InvitationStatus.PENDING,
+      },
+    });
+  }
+  throw new Error("Impossible de générer un identifiant invité unique.");
+}
+
+async function reconcileGuestRoster(
+  weddingId: string,
+  roster: SeedGuest[],
+  dryRun = false
+) {
+  const uniqueRoster = Array.from(
+    new Map(roster.map((guest) => [guestNameKey(guest.firstName, guest.lastName), guest])).values()
+  );
+  const rosterKeys = new Set(
+    uniqueRoster.map((guest) => guestNameKey(guest.firstName, guest.lastName))
+  );
+  const existingGuests = await prisma.guest.findMany({
+    where: { weddingId },
+    include: {
+      invitation: {
+        select: { status: true, qrCodeKey: true, qrCodeUrl: true },
+      },
+    },
+    orderBy: { createdAt: "asc" },
+  });
+  const guestsByName = new Map<string, typeof existingGuests>();
+  for (const guest of existingGuests) {
+    const key = guestNameKey(guest.firstName, guest.lastName);
+    guestsByName.set(key, [...(guestsByName.get(key) ?? []), guest]);
+  }
+
+  const deletedIds = new Set<string>();
+  let duplicateCount = 0;
+  let missingGuestCount = 0;
+  let missingInvitationCount = 0;
+  for (const [key, guests] of guestsByName) {
+    if (guests.length < 2 || !rosterKeys.has(key)) continue;
+    const protectedGuests = guests.filter(
+      (guest) =>
+        guest.invitation?.status === InvitationStatus.CONFIRMED ||
+        guest.invitation?.status === InvitationStatus.CHECKED_IN ||
+        guest.invitation?.qrCodeKey ||
+        guest.invitation?.qrCodeUrl
+    );
+    const keepIds = new Set(
+      protectedGuests.length > 0
+        ? protectedGuests.map((guest) => guest.id)
+        : [
+            [...guests].sort(
+              (a, b) =>
+                Number(!!b.phone) - Number(!!a.phone) ||
+                Number(!!b.invitation) - Number(!!a.invitation) ||
+                a.createdAt.getTime() - b.createdAt.getTime()
+            )[0].id,
+          ]
+    );
+    const survivor = guests.find((guest) => keepIds.has(guest.id));
+    const duplicates = guests.filter(
+      (guest) =>
+        !keepIds.has(guest.id) &&
+        !guest.invitation?.qrCodeKey &&
+        !guest.invitation?.qrCodeUrl
+    );
+    if (duplicates.length === 0) continue;
+    if (survivor && !dryRun) {
+      await prisma.guest.update({
+        where: { id: survivor.id },
+        data: {
+          phone: survivor.phone ?? duplicates.find((guest) => guest.phone)?.phone,
+          email: survivor.email ?? duplicates.find((guest) => guest.email)?.email,
+        },
+      });
+    }
+    if (!dryRun) {
+      await prisma.guest.deleteMany({
+        where: { id: { in: duplicates.map((guest) => guest.id) } },
+      });
+    }
+    duplicates.forEach((guest) => deletedIds.add(guest.id));
+    duplicateCount += duplicates.length;
+  }
+
+  const presentKeys = new Set(
+    existingGuests
+      .filter((guest) => !deletedIds.has(guest.id))
+      .map((guest) => guestNameKey(guest.firstName, guest.lastName))
+  );
+  for (const guest of uniqueRoster) {
+    const key = guestNameKey(guest.firstName, guest.lastName);
+    if (presentKeys.has(key)) continue;
+    if (!dryRun) {
+      const created = await prisma.guest.create({ data: guest });
+      await createPendingInvitation(created.id, weddingId);
+    }
+    missingGuestCount++;
+    presentKeys.add(key);
+  }
+
+  for (const guest of existingGuests) {
+    if (
+      deletedIds.has(guest.id) ||
+      !rosterKeys.has(guestNameKey(guest.firstName, guest.lastName)) ||
+      guest.invitation
+    ) {
+      continue;
+    }
+    if (!dryRun) await createPendingInvitation(guest.id, weddingId);
+    missingInvitationCount++;
+  }
+
+  console.log(
+    `${dryRun ? "Aperçu" : "Synchronisation"} invités : ${missingGuestCount} invité(s) à ajouter, ${missingInvitationCount} invitation(s) à créer, ${duplicateCount} doublon(s) non confirmé(s) à ${dryRun ? "supprimer" : "supprimé(s)"}.`
+  );
+}
 
 async function main() {
   console.log("🌱 Seed en cours...");
@@ -38,8 +188,7 @@ async function main() {
   });
   console.log("✅ Wedding :", wedding.slug);
 
-  await prisma.guest.createMany({
-    data: [
+  const guestRoster: SeedGuest[] = [
       {
         weddingId: wedding.id,
         firstName: "Mr TOUMI",
@@ -348,8 +497,17 @@ async function main() {
         firstName: "Mme Tankoua",
         lastName: "",
       },
-    ],
-  });
+    ];
+  const dryRunGuests = process.argv.includes("--dry-run-guests");
+  await reconcileGuestRoster(wedding.id, guestRoster, dryRunGuests);
+  if (dryRunGuests) {
+    console.log("Aucune modification de la liste des invités n'a été effectuée.");
+    return;
+  }
+  if (process.argv.includes("--guests-only")) {
+    console.log("✅ Synchronisation des invités terminée.");
+    return;
+  }
 
   await prisma.wishlistItem.createMany({
     data: [

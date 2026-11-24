@@ -14,15 +14,22 @@ import { AdminCard } from "@/components/admin/AdminCard";
 interface Status {
   adminPhone: string | null;
   isConnected: boolean;
+  connectedPhone: string | null;
   qr: string | null;
   lastConnectedAt: Date | null;
 }
 
+function toLocalPhone(phone: string | null) {
+  const digits = phone?.replace(/\D/g, "") ?? "";
+  return digits.startsWith("237") ? digits.slice(3) : digits;
+}
+
 export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
   const [status, setStatus] = useState(initialStatus);
-  const [phone, setPhone] = useState(status.adminPhone ?? "");
+  const [phone, setPhone] = useState(toLocalPhone(status.adminPhone));
   const [savingPhone, setSavingPhone] = useState(false);
   const [savedPhone, setSavedPhone] = useState(false);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState<string | null>(null);
@@ -47,14 +54,22 @@ export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
   async function savePhone() {
     setSavingPhone(true);
     setSavedPhone(false);
+    setPhoneError(null);
     try {
-      await fetch("/api/admin/whatsapp/phone", {
+      const res = await fetch("/api/admin/whatsapp/phone", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: phone.trim() || null }),
       });
+      const data = await res.json();
+      if (!res.ok) {
+        setPhoneError(data.error ?? "Impossible d'enregistrer ce numéro.");
+        return;
+      }
       setSavedPhone(true);
       setTimeout(() => setSavedPhone(false), 2000);
+    } catch {
+      setPhoneError("Impossible de contacter le serveur. Réessayez.");
     } finally {
       setSavingPhone(false);
     }
@@ -102,6 +117,11 @@ export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
               <CheckCircle2 size={24} />
             </div>
             <p className="mt-4 text-sm font-medium text-slate-900">Connecté</p>
+            {status.connectedPhone && (
+              <p className="mt-1 text-xs text-slate-500">
+                Numéro connecté : {status.connectedPhone}
+              </p>
+            )}
             {status.lastConnectedAt && (
               <p className="mt-1 text-xs text-slate-500">
                 Depuis le{" "}
@@ -135,7 +155,7 @@ export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
             </div>
             <p className="mt-4 text-sm text-slate-600">Non connecté</p>
             <p className="mt-1 text-xs text-slate-400">
-              Le QR apparaîtra dès que le client Baileys sera initialisé.
+              Initialisation de la connexion... Le QR apparaîtra ici.
             </p>
           </div>
         )}
@@ -149,8 +169,11 @@ export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
           Ce numéro reçoit une notification à chaque nouvelle confirmation.
         </p>
 
-        <label className="text-xs text-slate-500 uppercase tracking-wide">
-          Numéro (avec indicatif)
+        <label
+          htmlFor="admin-whatsapp-phone"
+          className="text-xs text-slate-500 uppercase tracking-wide"
+        >
+          Numéro camerounais sans indicatif
         </label>
         <div className="mt-1 flex gap-2">
           <div className="relative flex-1">
@@ -159,13 +182,18 @@ export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
               className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
             />
             <input
+              id="admin-whatsapp-phone"
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="+237 6 XX XX XX XX"
+              placeholder="6XX XXX XXX"
               className="w-full h-10 pl-9 pr-3 text-sm bg-white border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400"
             />
           </div>
+          <p className="mt-1 text-xs text-slate-500">
+            Saisissez les 9 chiffres locaux ; l&apos;indicatif +237 sera ajouté automatiquement.
+          </p>
+          {phoneError && <p className="mt-2 text-xs text-red-600">{phoneError}</p>}
           <button
             onClick={savePhone}
             disabled={savingPhone}

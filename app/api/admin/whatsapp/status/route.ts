@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth/session";
 import { WhatsAppAdminService } from "@/services/WhatsAppAdminService";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function GET() {
   const session = await getSession();

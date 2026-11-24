@@ -8,10 +8,16 @@ interface SendParams {
   content: string;
   type: "GUEST_INVITATION" | "ADMIN_NOTIFICATION";
   invitationId?: string;
+  imageUrl?: string;
 }
 
 function normalizeJid(phone: string): string {
-  const digits = phone.replace(/\D/g, "");
+  if (phone.includes("@")) return phone;
+  const rawDigits = phone.replace(/\D/g, "");
+  const digits =
+    rawDigits.length === 9 && rawDigits.startsWith("6")
+      ? `237${rawDigits}`
+      : rawDigits;
   return digits.includes("@") ? digits : `${digits}@s.whatsapp.net`;
 }
 
@@ -37,7 +43,12 @@ export const WhatsAppService = {
         throw new Error("WhatsApp non connecté");
       }
       const jid = normalizeJid(params.recipient);
-      await client.socket.sendMessage(jid, { text: params.content });
+      await client.socket.sendMessage(
+        jid,
+        params.imageUrl
+          ? { image: { url: params.imageUrl }, caption: params.content }
+          : { text: params.content }
+      );
 
       await prisma.whatsAppMessage.update({
         where: { id: message.id },
@@ -84,6 +95,7 @@ export const WhatsAppService = {
       content,
       type: "GUEST_INVITATION",
       invitationId: params.invitationId,
+      imageUrl: params.qrUrl,
     });
   },
 

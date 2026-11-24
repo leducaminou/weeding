@@ -1,6 +1,7 @@
 import { InvitationStatus } from "@prisma/client";
 
 const MAP = {
+  PENDING: { label: "À confirmer", class: "bg-amber-50 text-amber-700" },
   CONFIRMED: { label: "Confirmé", class: "bg-emerald-50 text-emerald-700" },
   REVOKED: { label: "Révoqué", class: "bg-red-50 text-red-700" },
   EXPIRED: { label: "Expiré", class: "bg-amber-50 text-amber-700" },

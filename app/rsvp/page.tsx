@@ -37,9 +37,8 @@ export default function RsvpPage() {
             </h1>
             <CelestialOrnament className="my-6" />
             <p className="max-w-md text-sm sm:text-base text-ivory-100/80 leading-relaxed">
-              Remplissez ces quelques informations pour confirmer votre
-              présence. Vous recevrez immédiatement votre invitation personnelle
-              et votre QR code.
+              Recherchez votre nom dans la liste des invités, sélectionnez-le,
+              puis confirmez votre présence.
             </p>
           </div>
 
