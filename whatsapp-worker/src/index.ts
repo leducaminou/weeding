@@ -4,6 +4,7 @@ import makeWASocket, {
   BufferJSON,
   Browsers,
   DisconnectReason,
+  fetchLatestBaileysVersion,
   initAuthCreds,
   proto,
   type AuthenticationState,
@@ -152,7 +153,15 @@ async function startSocket() {
       lastError: null,
     });
 
+    let version: [number, number, number] | undefined;
+    try {
+      ({ version } = await fetchLatestBaileysVersion());
+    } catch (error) {
+      logger.warn({ error }, "Could not fetch the current WhatsApp Web version");
+    }
+
     const currentSocket = makeWASocket({
+      ...(version ? { version } : {}),
       auth: state,
       printQRInTerminal: false,
       browser: Browsers.ubuntu("Loïca & Franck"),
@@ -217,7 +226,12 @@ async function handleConnectionUpdate(
 
   const code = (lastDisconnect?.error as { output?: { statusCode?: number } } | undefined)
     ?.output?.statusCode;
+  const reason =
+    lastDisconnect?.error instanceof Error
+      ? lastDisconnect.error.message
+      : "Aucun détail fourni par Baileys.";
   const linked = wasLinkedAtStart || !!currentSocket.authState?.creds?.me?.id;
+  logger.warn({ code, reason }, "WhatsApp connection closed");
 
   if (code === DisconnectReason.loggedOut) {
     await credsSaving;
@@ -232,8 +246,43 @@ async function handleConnectionUpdate(
     return;
   }
 
+  if (code === DisconnectReason.badSession) {
+    await credsSaving;
+    await prisma.whatsAppAuthKey.deleteMany({ where: { sessionId } });
+    await updateConfig({
+      isConnected: false,
+      connectionStatus: "DISCONNECTED",
+      connectedPhone: null,
+      qr: null,
+      lastError:
+        "La session Baileys est invalide. Les identifiants ont été réinitialisés ; générez un nouveau QR code.",
+    });
+    return;
+  }
+
   if (code === DisconnectReason.restartRequired) {
     scheduleReconnect(0);
+    return;
+  }
+
+  if (code === DisconnectReason.forbidden) {
+    await updateConfig({
+      isConnected: false,
+      connectionStatus: "DISCONNECTED",
+      qr: null,
+      lastError: "WhatsApp a refusé la connexion (403). Vérifiez le numéro dédié.",
+    });
+    return;
+  }
+
+  if (code === DisconnectReason.connectionReplaced) {
+    await updateConfig({
+      isConnected: false,
+      connectionStatus: "DISCONNECTED",
+      qr: null,
+      lastError:
+        "Cette session WhatsApp est ouverte dans un autre processus. Fermez l’autre connexion avant de réessayer.",
+    });
     return;
   }
 
@@ -242,7 +291,10 @@ async function handleConnectionUpdate(
       isConnected: false,
       connectionStatus: "DISCONNECTED",
       qr: null,
-      lastError: "Le QR code a expiré sans être scanné. Générez-en un nouveau.",
+      lastError:
+        code === DisconnectReason.timedOut
+          ? "La connexion a expiré avant le scan. Si le QR n’est pas apparu, vérifiez les logs du daemon ; sinon générez-en un nouveau."
+          : `WhatsApp a fermé la connexion (${code ?? "cause inconnue"}): ${reason}`,
     });
     return;
   }
