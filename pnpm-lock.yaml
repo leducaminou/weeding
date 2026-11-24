@@ -8,18 +8,12 @@ importers:
 
   .:
     dependencies:
-      '@hapi/boom':
-        specifier: ^10.0.1
-        version: 10.0.1
       '@prisma/client':
         specifier: ^6.1.0
         version: 6.19.3(prisma@6.19.3(typescript@5.9.3))(typescript@5.9.3)
       '@uploadthing/react':
         specifier: ^7.1.0
         version: 7.3.3(next@15.5.23(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(uploadthing@7.7.4(next@15.5.23(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.3.3))
-      '@whiskeysockets/baileys':
-        specifier: ^6.7.22
-        version: 6.7.22(audio-decode@2.2.3)(debug@4.4.3(supports-color@7.2.0))(jimp@1.6.1(supports-color@7.2.0))(link-preview-js@3.2.0)(sharp@0.34.5)(supports-color@7.2.0)
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -50,9 +44,6 @@ importers:
       next:
         specifier: 15.5.23
         version: 15.5.23(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      pino:
-        specifier: ^9.5.0
-        version: 9.14.0
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
@@ -111,6 +102,37 @@ importers:
       tailwindcss:
         specifier: ^4
         version: 4.3.3
+      tsx:
+        specifier: ^4.19.2
+        version: 4.23.15
+      typescript:
+        specifier: ^5
+        version: 5.9.3
+
+  whatsapp-worker:
+    dependencies:
+      '@prisma/client':
+        specifier: ^6.1.0
+        version: 6.19.3(prisma@6.19.3(typescript@5.9.3))(typescript@5.9.3)
+      '@whiskeysockets/baileys':
+        specifier: ^6.7.22
+        version: 6.7.22(audio-decode@2.2.3)(debug@4.4.3(supports-color@7.2.0))(jimp@1.6.1(supports-color@7.2.0))(link-preview-js@3.2.0)(sharp@0.34.5)(supports-color@7.2.0)
+      pino:
+        specifier: ^9.5.0
+        version: 9.14.0
+      qrcode:
+        specifier: ^1.5.4
+        version: 1.5.4
+    devDependencies:
+      '@types/node':
+        specifier: ^20
+        version: 20.19.43
+      '@types/qrcode':
+        specifier: ^1.5.5
+        version: 1.5.6
+      prisma:
+        specifier: ^6.1.0
+        version: 6.19.3(typescript@5.9.3)
       tsx:
         specifier: ^4.19.2
         version: 4.23.15
@@ -351,14 +373,8 @@ packages:
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@hapi/boom@10.0.1':
-    resolution: {integrity: sha512-ERcCZaEjdH3OgSJlyjVk8pHIFeus91CjKP3v+MpgBNp5IvGzP2l/bRiD78nqYcKPaZdbKkK5vDBVPd2ohHBlsA==}
-
   '@hapi/boom@9.1.4':
     resolution: {integrity: sha512-Ls1oH8jaN1vNsqcaHVYJrKmgMcKsC1wcp8bujvXrHaAqD2iDYq3HoOwsxwo09Cuda5R5nC0o0IxlrlTuvPuzSw==}
-
-  '@hapi/hoek@11.0.7':
-    resolution: {integrity: sha512-HV5undWkKzcB4RZUusqOpcgxOaq6VOAH7zhhIr2g3G8NF/MlFO75SjOr2NfuSx0Mh40+1FqCkagKLJRykUWoFQ==}
 
   '@hapi/hoek@9.3.0':
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
@@ -2181,7 +2197,7 @@ packages:
     engines: {node: '>= 0.8.0'}
 
   libsignal@https://codeload.github.com/whiskeysockets/libsignal-node/tar.gz/bcea72df9ec34d9d9140ab30619cf479c7c144c7:
-    resolution: {gitHosted: true, tarball: https://codeload.github.com/whiskeysockets/libsignal-node/tar.gz/bcea72df9ec34d9d9140ab30619cf479c7c144c7}
+    resolution: {gitHosted: true, integrity: sha512-KmRMuAYSfd4upRD0xOgKbURxRXNE8X8NtgmkUOJFXOn9ESSCXguIZ7PJu8OBJIr7KGww41Vf/Pbgko+PgWQ55g==, tarball: https://codeload.github.com/whiskeysockets/libsignal-node/tar.gz/bcea72df9ec34d9d9140ab30619cf479c7c144c7}
     version: 6.0.0
 
   lightningcss-android-arm64@1.32.0:
@@ -3251,15 +3267,9 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@hapi/boom@10.0.1':
-    dependencies:
-      '@hapi/hoek': 11.0.7
-
   '@hapi/boom@9.1.4':
     dependencies:
       '@hapi/hoek': 9.3.0
-
-  '@hapi/hoek@11.0.7': {}
 
   '@hapi/hoek@9.3.0': {}
 

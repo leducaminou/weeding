@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { MessageStatus } from "@prisma/client";
-import { getWhatsAppClient } from "@/lib/whatsapp/client";
 import { audit } from "@/lib/audit";
+import { sendWhatsAppCommand } from "@/services/WhatsAppCommandService";
 
 interface SendParams {
   recipient: string;
@@ -38,17 +38,12 @@ export const WhatsAppService = {
     });
 
     try {
-      const client = await getWhatsAppClient();
-      if (!client || !client.isConnected) {
-        throw new Error("WhatsApp non connecté");
-      }
       const jid = normalizeJid(params.recipient);
-      await client.socket.sendMessage(
-        jid,
-        params.imageUrl
-          ? { image: { url: params.imageUrl }, caption: params.content }
-          : { text: params.content }
-      );
+      await sendWhatsAppCommand({
+        recipient: jid,
+        content: params.content,
+        ...(params.imageUrl ? { imageUrl: params.imageUrl } : {}),
+      });
 
       await prisma.whatsAppMessage.update({
         where: { id: message.id },

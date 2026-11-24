@@ -1,0 +1,7 @@
+.git
+.next
+node_modules
+loica_et_franck
+*.log
+.env
+.env.*

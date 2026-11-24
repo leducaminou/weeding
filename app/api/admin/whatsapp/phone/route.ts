@@ -31,5 +31,5 @@ export async function POST(req: Request) {
     entity: "WhatsAppConfig",
     metadata: { phone: parsed.data.phone },
   });
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, phone: parsed.data.phone });
 }

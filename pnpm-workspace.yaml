@@ -1,3 +1,6 @@
+packages:
+  - whatsapp-worker
+
 blockExoticSubdeps: false
 
 allowBuilds:

@@ -2158,3 +2158,6 @@ dans la bd actuel il y a les invité du fichiers seed, or avec l'ancien systeme 
 
 je voudrais refaire le seed. par contre ceux qui on confirmé leur participation ne doient pas etre supprimé. supprimé le doublon non confirmé.
 
+
+
+une fois whatsapp envoyé avec succes changé le statut de whatsapp

@@ -1,28 +1,29 @@
 import { prisma } from "@/lib/prisma";
-import { getWhatsAppInstance, initWhatsAppClient } from "@/lib/whatsapp/client";
+import { enqueueWhatsAppConnect } from "@/services/WhatsAppCommandService";
 
 export const WhatsAppAdminService = {
   async getStatus() {
-    await initWhatsAppClient();
     const config = await prisma.whatsAppConfig.findUnique({
       where: { id: "default" },
     });
-    const instance = getWhatsAppInstance();
-    const jid = instance?.socket.user?.id;
+    const workerOnline = Boolean(
+      config?.workerLeaseExpiresAt &&
+        config.workerLeaseExpiresAt > new Date(),
+    );
     return {
       adminPhone: config?.adminPhone ?? null,
-      isConnected: instance?.isConnected ?? config?.isConnected ?? false,
-      connectedPhone:
-        jid?.endsWith("@s.whatsapp.net")
-          ? `+${jid.split("@")[0].split(":")[0]}`
-          : null,
-      qr: instance?.qr ?? null,
+      isConnected: Boolean(config?.isConnected && workerOnline),
+      connectionStatus: config?.connectionStatus ?? "DISCONNECTED",
+      connectedPhone: config?.connectedPhone ?? null,
+      qr: config?.qr ?? null,
       lastConnectedAt: config?.lastConnectedAt ?? null,
-      authStorageWarning:
-        process.env.VERCEL && !process.env.WHATSAPP_AUTH_DIR
-          ? "Le stockage Baileys est temporaire sur cet hébergement. La session WhatsApp peut être perdue au redémarrage ; configurez WHATSAPP_AUTH_DIR vers un stockage persistant."
-          : null,
+      lastError: config?.lastError ?? null,
+      workerOnline,
     };
+  },
+
+  async connect() {
+    await enqueueWhatsAppConnect();
   },
 
   async updateAdminPhone(phone: string | null) {

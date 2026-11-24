@@ -243,10 +243,40 @@ model WhatsAppConfig {
   id              String    @id @default("default")
   adminPhone      String?
   isConnected     Boolean   @default(false)
+  connectionStatus String   @default("DISCONNECTED")
+  connectedPhone  String?
+  qr              String?
+  lastError       String?
+  workerId        String?
+  workerLeaseExpiresAt DateTime?
   lastConnectedAt DateTime?
   updatedAt       DateTime  @updatedAt
 
   @@map("whatsapp_config")
+}
+
+model WhatsAppAuthKey {
+  sessionId String
+  key       String
+  value     String
+  updatedAt DateTime @updatedAt
+
+  @@id([sessionId, key])
+  @@map("whatsapp_auth_keys")
+}
+
+model WhatsAppCommand {
+  id        String   @id @default(cuid())
+  command   String
+  payload   Json
+  status    String   @default("PENDING")
+  result    String?
+  error     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@map("whatsapp_commands")
 }
 
 // ─────────────────────────────

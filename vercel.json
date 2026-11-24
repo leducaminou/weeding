@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "daemons": {
+    "whatsapp": {
+      "root": ".",
+      "entrypoint": "whatsapp-worker/Dockerfile",
+      "instances": {
+        "cdg1": 1
+      }
+    }
+  }
+}

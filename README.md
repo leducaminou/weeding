@@ -32,8 +32,17 @@ pnpm db:seed:guests
 Cette synchronisation dédoublonne les noms identiques et conserve toutes les
 invitations confirmées ou déjà utilisées.
 
-Baileys stocke sa session dans `baileys_auth/` en local. En environnement
-Vercel, le dossier `/tmp/baileys_auth` est utilisé par défaut pour éviter
-l'écriture dans le bundle de l'application ; ce stockage est temporaire.
-Pour conserver une session durable, configurez `WHATSAPP_AUTH_DIR` vers un
-disque persistant sur un serveur Node.js toujours actif.
+Baileys tourne dans un daemon Vercel distinct des fonctions Next.js. Le daemon
+garde le socket actif et stocke la session, le QR et les commandes WhatsApp
+dans PostgreSQL. `vercel.json` configure une seule instance dans la région
+`cdg1` pour éviter que plusieurs sockets utilisent le même numéro.
+
+Avant le déploiement, appliquez la migration :
+
+```bash
+pnpm exec prisma migrate deploy
+```
+
+Vérifiez que `DATABASE_URL` est défini pour les fonctions et le daemon. Les
+daemons Vercel sont actuellement en bêta publique. En local, lancez
+`pnpm --filter @loicaetfranck/whatsapp-worker dev` en plus de Next.js.
