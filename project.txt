@@ -2115,3 +2115,46 @@ La technologie doit être invisible pour l'utilisateur.
 Tout doit sembler :
 
 **simple, fluide, élégant et naturel.**
+
+
+
+
+actuellement la connexion numéro whatsapp par baileys ne marche pas.
+
+le design est en place, mais l'utilisateur doit devoir connecter un numero de telephone.
+
+
+dans la reservetion d'invitation. je ne veux pas qu'un invité s'inscrive.
+
+en fait il y a deja une liste d'invité. lorsq'uil va dans la page je serai là. il doit y avoir une barre de recherche où il doit faire la recherche de son nom.
+lorsqu'il trouve son nom il clique dessus puis entre un numéro de telephone whatsapp (facultatif) puis confirme sa présence.
+ensuite le statut de son invitation change, un message est envoyé à l'admin par whatsapp, et aussi le qr code linvitation est envoyé à l'invité par whatsapp.
+
+
+dans le dashbord invité.
+l'admin doit pouvoir cliqué sur un bouton envoyé qr code à l'invité.
+et le message et qr code est envoyé à l'invité.
+
+il faut aussi un bouton bulk envoyé les qr code à tous le monde .
+
+on envois de qr qu'a l'invité ayant confirmé sa présence.
+
+
+l'admin doit aussi pouvoir confirmé la présence d'un invité dans son dashbord.
+
+une confirmation envoie automatiquement une notification à linvité.
+
+
+dans les input de numéro; il faut le format du numéro du camroun sans l'indicatif, le user doit bien comprendre cela.
+
+
+
+
+
+chaque invité a droit a un seul qr code, même numéro unique, mêmê si on le regenere un millier de fois.
+
+
+dans la bd actuel il y a les invité du fichiers seed, or avec l'ancien systeme les autres invité présent se sont encore inscrit ce qui a crée des doublons.
+
+je voudrais refaire le seed. par contre ceux qui on confirmé leur participation ne doient pas etre supprimé. supprimé le doublon non confirmé.
+
