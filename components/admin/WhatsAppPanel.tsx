@@ -17,6 +17,7 @@ interface Status {
   connectedPhone: string | null;
   qr: string | null;
   lastConnectedAt: Date | null;
+  authStorageWarning: string | null;
 }
 
 function toLocalPhone(phone: string | null) {
@@ -160,6 +161,12 @@ export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
           </div>
         )}
       </AdminCard>
+
+      {status.authStorageWarning && (
+        <AdminCard className="p-4 border-amber-200 bg-amber-50 lg:col-span-2">
+          <p className="text-sm text-amber-900">{status.authStorageWarning}</p>
+        </AdminCard>
+      )}
 
       <AdminCard className="p-6">
         <h2 className="text-sm font-semibold text-slate-900 mb-1">

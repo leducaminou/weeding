@@ -1,8 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import {
-  getWhatsAppInstance,
-  initWhatsAppClient,
-} from "@/lib/whatsapp/client";
+import { getWhatsAppInstance, initWhatsAppClient } from "@/lib/whatsapp/client";
 
 export const WhatsAppAdminService = {
   async getStatus() {
@@ -21,6 +18,10 @@ export const WhatsAppAdminService = {
           : null,
       qr: instance?.qr ?? null,
       lastConnectedAt: config?.lastConnectedAt ?? null,
+      authStorageWarning:
+        process.env.VERCEL && !process.env.WHATSAPP_AUTH_DIR
+          ? "Le stockage Baileys est temporaire sur cet hébergement. La session WhatsApp peut être perdue au redémarrage ; configurez WHATSAPP_AUTH_DIR vers un stockage persistant."
+          : null,
     };
   },
 

@@ -5,11 +5,19 @@ import makeWASocket, {
   type WASocket,
 } from "@whiskeysockets/baileys";
 import { Boom } from "@hapi/boom";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import QRCode from "qrcode";
 import { prisma } from "@/lib/prisma";
 import { audit } from "@/lib/audit";
 
-const AUTH_DIR = "./baileys_auth";
+export function getWhatsAppAuthDirectory() {
+  const configuredDirectory = process.env.WHATSAPP_AUTH_DIR;
+  if (configuredDirectory) return path.resolve(configuredDirectory);
+
+  const baseDirectory = process.env.VERCEL ? tmpdir() : process.cwd();
+  return path.join(baseDirectory, "baileys_auth");
+}
 
 interface Client {
   socket: WASocket;
@@ -35,7 +43,9 @@ export async function initWhatsAppClient(): Promise<Client | null> {
   }
 
   initialization = (async () => {
-    const { state, saveCreds } = await loadMultiFileAuthState(AUTH_DIR);
+    const { state, saveCreds } = await loadMultiFileAuthState(
+      getWhatsAppAuthDirectory()
+    );
 
     const socket = makeWASocket({
       auth: state,
