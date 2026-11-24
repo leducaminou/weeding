@@ -54,16 +54,18 @@ async function updateConfig(patch: ConfigPatch) {
 }
 
 async function saveAuthEntries(entries: Array<{ key: string; value: string }>) {
-  if (!entries.length) return;
-  await prisma.$transaction(
-    entries.map(({ key, value }) =>
-      prisma.whatsAppAuthKey.upsert({
-        where: { sessionId_key: { sessionId, key } },
-        create: { sessionId, key, value },
-        update: { value },
-      }),
-    ),
-  );
+  for (let offset = 0; offset < entries.length; offset += 100) {
+    const chunk = entries.slice(offset, offset + 100);
+    await prisma.$transaction(
+      chunk.map(({ key, value }) =>
+        prisma.whatsAppAuthKey.upsert({
+          where: { sessionId_key: { sessionId, key } },
+          create: { sessionId, key, value },
+          update: { value },
+        }),
+      ),
+    );
+  }
 }
 
 async function loadAuthState() {
@@ -293,7 +295,7 @@ async function processCommand(command: WhatsAppCommand) {
       await startSocket();
       await prisma.whatsAppCommand.update({
         where: { id: command.id },
-        data: { status: "COMPLETED" },
+        data: { status: "COMPLETED", payload: {} },
       });
       return;
     }
@@ -312,6 +314,7 @@ async function processCommand(command: WhatsAppCommand) {
       where: { id: command.id },
       data: {
         status: "COMPLETED",
+        payload: {},
         result: JSON.stringify({ messageId: result?.key?.id ?? null }),
       },
     });
@@ -319,7 +322,7 @@ async function processCommand(command: WhatsAppCommand) {
     const message = error instanceof Error ? error.message : "WhatsApp command failed";
     await prisma.whatsAppCommand.update({
       where: { id: command.id },
-      data: { status: "FAILED", error: message },
+      data: { status: "FAILED", error: message, payload: {} },
     });
   }
 }
@@ -387,6 +390,7 @@ async function runWithLease() {
       where: { status: "PROCESSING" },
       data: {
         status: "FAILED",
+        payload: {},
         error:
           "Le worker a redémarré pendant le traitement. Vérifiez l’envoi avant de réessayer.",
       },

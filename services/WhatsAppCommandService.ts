@@ -68,6 +68,7 @@ export async function sendWhatsAppCommand(payload: Prisma.InputJsonValue) {
     where: { id: command.id, status: "PENDING" },
     data: {
       status: "FAILED",
+      payload: {},
       error: "Le service WhatsApp n’a pas répondu à temps.",
     },
   });

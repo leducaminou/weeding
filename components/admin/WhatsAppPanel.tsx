@@ -399,14 +399,14 @@ export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
               présence.
             </p>
 
-            <div className="mt-5">
+            <div className="mt-5 flex w-full flex-col gap-2">
               <label
                 htmlFor="admin-whatsapp-phone"
-                className="text-sm font-medium text-slate-700"
+                className="block text-sm font-medium text-slate-700"
               >
                 Numéro WhatsApp de l’administrateur
               </label>
-              <div className="mt-2 flex items-center rounded-md border border-slate-200 bg-white focus-within:border-slate-400 focus-within:ring-2 focus-within:ring-slate-900/10">
+              <div className="flex h-11 w-full min-w-0 items-center rounded-md border border-slate-200 bg-white focus-within:border-slate-400 focus-within:ring-2 focus-within:ring-slate-900/10">
                 <span className="border-r border-slate-200 px-3 text-sm font-medium text-slate-500">
                   +237
                 </span>
@@ -422,10 +422,10 @@ export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
                     setPhoneError(null);
                   }}
                   placeholder="6XX XXX XXX"
-                  className="h-11 min-w-0 flex-1 rounded-r-md px-3 text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                  className="block h-full w-full min-w-0 flex-1 rounded-r-md px-3 text-sm text-slate-900 outline-none placeholder:text-slate-400"
                 />
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-slate-500">
+              <p className="block w-full text-xs leading-relaxed text-slate-500">
                 Entrez les 9 chiffres camerounais, sans indicatif. +237 est
                 ajouté automatiquement.
               </p>
@@ -447,7 +447,7 @@ export function WhatsAppPanel({ initialStatus }: { initialStatus: Status }) {
               type="button"
               onClick={savePhone}
               disabled={savingPhone}
-              className="mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-slate-900 px-4 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+              className="mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-md bg-slate-900 px-4 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {savingPhone && <Loader2 size={15} className="animate-spin" />}
               Enregistrer le numéro

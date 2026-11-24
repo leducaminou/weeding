@@ -154,6 +154,19 @@ async function reconcileGuestRoster(
 }
 
 async function main() {
+  if (process.env.SEED_WHATSAPP_CONFIG_ONLY === "true") {
+    const result = await prisma.whatsAppConfig.createMany({
+      data: [{ id: "default", updatedAt: new Date() }],
+      skipDuplicates: true,
+    });
+    console.log(
+      result.count === 1
+        ? "✅ Configuration WhatsApp créée."
+        : "ℹ️ Configuration WhatsApp existante, aucune donnée modifiée."
+    );
+    return;
+  }
+
   console.log("🌱 Seed en cours...");
 
   // ─── Admin ───
